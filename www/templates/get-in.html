@@ -1,0 +1,22 @@
+<ion-view  id="get-in">
+  <ion-content>
+    <div class="bar bar-header bar-light">
+      <a href="#" class="back-btn"><i class="icon ion-chevron-left"></i></a>
+      <h1 class="title">ENTRAR</h1>
+    </div>
+
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input type="email" placeholder="email" ng-model="user.email">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Senha</span>
+        <input type="password" placeholder="senha" ng-model="user.password">
+      </label>
+        <button ng-click="signIn(user)" class="button button-block button-positive getin-btn">Entrar</button>
+      <button  class="button button-block button-positive facebook-btn"><i class="icon ion-social-facebook"></i>Entrar com facebook</button>
+      <a href="#/register-student" class="account-create">Nao tenho conta ainda</a>
+    </div>
+  </ion-content>
+</ion-view>
