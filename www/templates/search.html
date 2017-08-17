@@ -1,32 +1,17 @@
-<ion-view id="search">
+<ion-view>
+
+
   <ion-content>
-
-  <div class="search-tabs">
-
-    <ion-tabs class="tabs-striped tabs-color-assertive">
-      <ion-tab title="search" icon-on="ion-search" icon-off="ion-search" href="#/search/account">
-        <ion-nav-view name="search-account"></ion-nav-view>
-      </ion-tab>
-
-      <ion-tab title="clipboard" icon-on="ion-clipboard" icon-off="ion-clipboard">
-        <!-- Tab 2 content -->
-      </ion-tab>
-
-      <ion-tab title="blog" icon-on="ion-calendar" icon-off="ion-calendar">
-        <!-- Tab 3 content -->
-      </ion-tab>
-
-      <ion-tab title="user" icon-on="ion-person" icon-off="ion-person">
-        <!-- Tab 4 content -->
-      </ion-tab>
-    </ion-tabs>
-
-
-  </div>
-
-
-
+    <div class="list">
+      <div class="item item-input-inset subheader">
+        <label class="item-input-wrapper">
+             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete col-90" autocomplete="off" ng-model="formData.city" item-view-value-key="formatted_address" items-method="getAddressSuggestions(query)" placeholder="Cidade, UF" max-selected-items="1" cancel-label="Cancelar" select-items-label="Selecione uma cidade" />
+            <button class="button button-small">
+                <i class="icon ion-ios-search"></i>
+            </button>
+        </label>
+      </div>
+    </div>
   </ion-content>
-
 </ion-view>
 

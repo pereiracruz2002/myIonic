@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','firebase','ionic-datepicker', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform,$state) {
   $ionicPlatform.ready(function() {
@@ -84,9 +84,15 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'starter.contr
       templateUrl: 'templates/setup-profile-professional.html'
     })
 
+    // .state('search', {
+    //   url: '/search',
+    //   abstract: true,
+    //   templateUrl: 'templates/search.html'
+    // })
+
     .state('search', {
       url: '/search',
-      abstract: true,
+      controller: 'SearchCtrl',
       templateUrl: 'templates/search.html'
     })
 
