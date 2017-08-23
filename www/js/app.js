@@ -5,17 +5,27 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services'])
 
 .run(function($ionicPlatform,$state) {
   $ionicPlatform.ready(function() {
-    var config = {
-    apiKey: "AIzaSyBipZxEb3GmFY2eHKmYcv0cYS1MF2U4BW8",
-    authDomain: "flabs-37c75.firebaseapp.com",
-    databaseURL: "https://flabs-37c75.firebaseio.com",
-    projectId: "flabs-37c75",
-    storageBucket: "flabs-37c75.appspot.com",
-    messagingSenderId: "1001290918744"
+  //   var config = {
+  //   apiKey: "AIzaSyBipZxEb3GmFY2eHKmYcv0cYS1MF2U4BW8",
+  //   authDomain: "flabs-37c75.firebaseapp.com",
+  //   databaseURL: "https://flabs-37c75.firebaseio.com",
+  //   projectId: "flabs-37c75",
+  //   storageBucket: "flabs-37c75.appspot.com",
+  //   messagingSenderId: "1001290918744"
+  // };
+  // firebase.initializeApp(config);
+
+  var config = {
+    apiKey: "AIzaSyBX49lvY0NdOfvK8gB-2U9wmYqi6NxFL1Y",
+    authDomain: "learnfirebase-b42c0.firebaseapp.com",
+    databaseURL: "https://learnfirebase-b42c0.firebaseio.com",
+    projectId: "learnfirebase-b42c0",
+    storageBucket: "",
+    messagingSenderId: "129383281024"
   };
   firebase.initializeApp(config);
 

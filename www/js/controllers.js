@@ -14,7 +14,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     }
 })
 
-.controller('SearchCtrl',function($scope,$stateParams,$state){
+.controller('SearchCtrl',function($scope,$stateParams,$state,$q){
   $scope.titulo = 'Busca';
 
   $scope.formData = {
@@ -30,7 +30,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
           $scope.titulo = 'Eventos Públicos em '+cidade+' - '+estado;
           $ionicLoading.show();
 
-          var ref = firebase.database().ref("/users/").orderByChild('cidade').equalTo(cidade).once("value",function(valor){
+          var ref = firebase.database().ref("/profissionais/").orderByChild('cidade').equalTo(cidade).once("value",function(valor){
             $ionicLoading.hide().then(function(){
               var key = Object.keys(valor.val());
               console.log(key)
@@ -116,48 +116,59 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     
     $scope.cadastro = function(user){
 
+      var ref = firebase.database();
+
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(function(result) {
-        console.log(result)
-        //sendEmailVerification();
+         var id = result.uid;
+         console.log(result.uid)
         result.updateProfile({
           displayName: user.nome,
           photoURL: "http://lorempixel.com/400/200/sports/"
         }).then(function() {
-        var treinos = firebase.database().ref('treinos/');
-        var newTrainners = treinos.push();
-        newTrainners.set({
-          nome:'Musculaçao'
-        });
-        var usuarios = firebase.database().ref('users/');
-        var newUsers = usuarios.push();
-        newUsers.set({
-            nome : user.nome,
-            sobrenome:user.sobrenome,
-            sexo:user.sexo,
-            email:user.email,
-            nascimento:user.nascimento,
-            estado:user.estado,
-            cidade:user.cidade,
-            photoURL: "http://lorempixel.com/400/200/sports/",
-            tipo:user.tipo
+          firebase.auth().currentUser.sendEmailVerification().then(function() {
+           
+            if(user.tipo =='aluno')
+              var usuarios = ref.ref('alunos/');
+            else
+               var usuarios = ref.ref('profissionais/');
+            
+            var newUsers = usuarios.push();
+            newUsers.set({
+                id:id,
+                nome : user.nome,
+                sobrenome:user.sobrenome,
+                sexo:user.sexo,
+                email:user.email,
+                nascimento:user.nascimento,
+                estado:user.estado,
+                cidade:user.cidade
+                
+              }).then(function(retorno){
+                if(user.tipo =="aluno"){
+                  $state.go("search.account");
+                }else{
+                  $state.go("setup-profile-professional");
+                }
+              },function(error){
+                  var alertPopup = $ionicPopup.alert({
+                    title: 'Erro no cadastro',
+                    template: error
+                });
+              });
           });
-        });
-
-        if(user.tipo =="aluno"){
-          $state.go("setup-profile-professional");
-        }else{
-          $state.go("search.account");
-        }
-     
-
-
         }, function(error) {
           var alertPopup = $ionicPopup.alert({
                   title: 'Erro no cadastro',
                   template: error
           });
         });
-     };
+      },function(error) {
+        var alertPopup = $ionicPopup.alert({
+                  title: 'Erro no cadastro',
+                  template: error
+        });
+      });
+    };
 })
 .controller('DashCtrl', function($scope, $stateParams,$firebase,$ionicLoading,$q) {
 
@@ -178,7 +189,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
           $scope.titulo = 'Eventos Públicos em '+cidade+' - '+estado;
           $ionicLoading.show();
           console.log(cidade)
-          var ref = firebase.database().ref("/users/").orderByChild('cidade').equalTo(cidade).once("value",function(valor){
+          var ref = firebase.database().ref("/profissionais/").orderByChild('cidade').equalTo(cidade).once("value",function(valor){
             $ionicLoading.hide().then(function(){
               var key = Object.keys(valor.val());
               console.log(key)
@@ -234,16 +245,35 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
    
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatDetailCtr', function($scope, $stateParams,$firebase,$ionicLoading) {
+  console.log('aqui')
+  $ionicLoading.show({
+          template: 'Carregando...'
+      }).then(function(){
+          $scope.conversas = [];
+    });
+    var ref =firebase.database();
+    var authData = ref.getAuth();
+    var chatRef = ref.ref("/chat");
+    var conversaRef = ref.ref("/conversas");
+    var profissional_aluno = $stateParams.chatId+"_"+authData.uid;
 
-  $scope.chats = Chats.all();
-    $scope.remove = function(chat) {
-      Chats.remove(chat);
-    };
+    chatRef.orderByChild('profissional_aluno').equalTo(profissional_aluno).once("value",function(valor){
+      $ionicLoading.hide().then(function(){
+            $scope.conversas= valor.val();
+      });
+    });
+
+    console.log($scope.conversas)
+
+  // $scope.chats = Chats.all();
+  //   $scope.remove = function(chat) {
+  //     Chats.remove(chat);
+  //   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetail', function($scope, $stateParams, Chats) {
+  //$scope.chat = Chats.get($stateParams.chatId);
 })
 
 .controller('SetupCtrl',function($scope,$stateParams,$firebase,$ionicLoading){
@@ -260,6 +290,46 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
       });
     });
 })
+
+.controller('ChatCtrl', function ($scope, Chats, $state) {
+    //console.log("Chat Controller initialized");
+
+    $scope.IM = {
+        textMessage: ""
+    };
+
+    Chats.selectRoom($state.params.roomId);
+
+    var roomName = Chats.getSelectedRoomName();
+
+    // Fetching Chat Records only if a Room is Selected
+    if (roomName) {
+        $scope.roomName = " - " + roomName;
+        $scope.chats = Chats.all();
+    }
+
+    $scope.sendMessage = function (msg) {
+        console.log(msg);
+        Chats.send($scope.displayName, msg);
+        $scope.IM.textMessage = "";
+    }
+
+    $scope.remove = function (chat) {
+        Chats.remove(chat);
+    }
+})
+
+.controller('RoomsCtrl', function ($scope, Rooms, Chats, $state) {
+    $scope.rooms = Rooms.all();
+
+    $scope.openChatRoom = function (roomId) {
+        $state.go('tab.chat', {
+            roomId: roomId
+        });
+    }
+})
+
+
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {

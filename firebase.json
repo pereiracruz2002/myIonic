@@ -1,0 +1,87 @@
+{
+  "alunos" : {
+    "-Ks0710340X-PgDNqYwQ" : {
+      "cidade" : "City 1",
+      "email" : "pereiracruz2002@yahoo.com.br",
+      "estado" : "State 1",
+      "id" : "1Vak9xGEsrgkKtPZuN4koYWknAA3",
+      "nascimento" : "date",
+      "nome" : "Flávio",
+      "sexo" : "Masculino",
+      "sobrenome" : "Pereira"
+    }
+  },
+  "profissionais" : {
+    "1" : {
+      "cidade" : "Campinas",
+      "email" : "usain@bolt.com.br",
+      "estado" : "SP",
+      "id" : "1",
+      "nascimento" : "date",
+      "nome" : "Usain",
+      "sexo" : "Masculino",
+      "sobrenome" : "Bolt",
+      "photoURL"  : "http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg"
+    },
+     "2" : {
+      "cidade" : "Bauru",
+      "email" : "usain@bolt.com.br",
+      "estado" : "SP",
+      "id" : "1",
+      "nascimento" : "date",
+      "nome" : "Michael",
+      "sexo" : "Masculino",
+      "sobrenome" : "Phelps",
+      "photoURL"  : "http://i2.cdn.cnn.com/cnnnext/dam/assets/160630101057-michael-phelps-u-s-trials-exlarge-169.jpg"
+    }
+  },
+  "treino_profissionais" : {
+    "1" : {
+      "treinoId":1,
+      "profissionaisId":1
+    },
+    "2" : {
+      "treinoId":2,
+      "profissionaisId":2
+    }
+  },
+  "treinos": {
+    "1": {
+      "modalidade":"Corrida"
+    },
+     "2": {
+      "modalidade":"Natacao"
+    }
+  },
+  "chat":{
+    "1" : {
+      "profissional_aluno":"1_-Ks0710340X-PgDNqYwQ"
+    }
+  },
+  "conversas":{
+    "1":{
+      "1": {
+        "texto": "Ola treinador Bolt",
+        "photoURL"  : "http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+        "data":"22-09-2017",
+        "nome":"Flavio",
+        "sobrenome":"Pereira"
+      },
+      "2": {
+        "texto": "Ola como vai? Quer ser um campeao?",
+        "photoURL"  : "http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+        "data":"22-09-2017",
+        "nome":"Usain",
+        "sobrenome":"Bolt"
+      },
+       "3": {
+        "texto": "Claro que sim!",
+        "photoURL"  : "http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+        "data":"22-09-2017",
+        "nome":"Flavio",
+        "sobrenome":"Pereira"
+      }
+    }
+
+  }
+}
