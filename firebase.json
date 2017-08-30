@@ -21,7 +21,8 @@
       "nome" : "Usain",
       "sexo" : "Masculino",
       "sobrenome" : "Bolt",
-      "photoURL"  : "http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg"
+      "photoURL"  : "http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+      "estado_cidade": "SP_Bauru"
     },
      "2" : {
       "cidade" : "Bauru",
@@ -32,7 +33,8 @@
       "nome" : "Michael",
       "sexo" : "Masculino",
       "sobrenome" : "Phelps",
-      "photoURL"  : "http://i2.cdn.cnn.com/cnnnext/dam/assets/160630101057-michael-phelps-u-s-trials-exlarge-169.jpg"
+      "photoURL"  : "http://i2.cdn.cnn.com/cnnnext/dam/assets/160630101057-michael-phelps-u-s-trials-exlarge-169.jpg",
+      "estado_cidade": "SP_Bauru"
     }
   },
   "treino_profissionais" : {

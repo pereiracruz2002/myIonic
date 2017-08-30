@@ -146,6 +146,10 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocompl
     })
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
+      controller: 'ChatDetailCtrl',
+      params:{
+            'chatId': ''
+        },
       views: {
         'tab-chats': {
           templateUrl: 'templates/chat-detail.html',
@@ -153,6 +157,22 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocompl
         }
       }
     })
+
+  // .state('tab.detalhe_evento_public', {
+  //       url: '/detalhe_evento_public/:event_id',
+  //       params:{
+  //           'event_id': ''
+  //       },
+
+  //       views: {
+  //           'events_public': {
+  //                templateUrl: 'views/event_public_detail.html',
+  //                controller: 'EventDetailPublic'
+        
+  //           },
+  //       }
+       
+  //   })
 
   .state('tab.account', {
     url: '/account-user',

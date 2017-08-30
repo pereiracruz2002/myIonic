@@ -183,13 +183,15 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
         console.log('aqui')
         var dados = $scope.formData.city;
         if(typeof dados === 'object'){
-
+          console.log(dados.address_components);
           var cidade = dados.address_components[1].short_name;
           var estado = dados.address_components[2].short_name;
           $scope.titulo = 'Eventos Públicos em '+cidade+' - '+estado;
+          var estado_cidade = estado+"_"+cidade;
           $ionicLoading.show();
           console.log(cidade)
-          var ref = firebase.database().ref("/profissionais/").orderByChild('cidade').equalTo(cidade).once("value",function(valor){
+          var ref = firebase.database().ref("/profissionais/").orderByChild('estado_cidade').equalTo(estado_cidade).once("value",function(valor){
+            console.log(estado_cidade)
             $ionicLoading.hide().then(function(){
               var key = Object.keys(valor.val());
               console.log(key)
@@ -215,13 +217,11 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 
 
 
-    var ref = firebase.database().ref("/users/").orderByChild('tipo').equalTo('profissional').once("value",function(valor){
+    var ref = firebase.database().ref("/profissionais/").orderByChild('estado').equalTo('SP').once("value",function(valor){
       $ionicLoading.hide().then(function(){
         var key = Object.keys(valor.val());
-        console.log(key)
-           // $scope.chats= {id:key};
-            $scope.chats= valor.val();
-             console.log($scope.chats)
+        $scope.chats= valor.val();
+        console.log($scope.chats)     
       });
     });
 
@@ -245,18 +245,23 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
    
 })
 
-.controller('ChatDetailCtr', function($scope, $stateParams,$firebase,$ionicLoading) {
-  console.log('aqui')
+.controller('ChatDetailCtrl', function($scope,$firebase, $stateParams,$ionicLoading) {
+  console.log($stateParams.chatId)
+
+  //$scope.chat = Chats.get($stateParams.chatId);
   $ionicLoading.show({
           template: 'Carregando...'
       }).then(function(){
           $scope.conversas = [];
     });
     var ref =firebase.database();
-    var authData = ref.getAuth();
+    //var authData = firebase.auth();
+    var authData = firebase.auth().currentUser();
     var chatRef = ref.ref("/chat");
     var conversaRef = ref.ref("/conversas");
-    var profissional_aluno = $stateParams.chatId+"_"+authData.uid;
+    var profissional_aluno = $stateParams.chatId+"_"+authData;
+
+    console.log(authData);
 
     chatRef.orderByChild('profissional_aluno').equalTo(profissional_aluno).once("value",function(valor){
       $ionicLoading.hide().then(function(){
@@ -272,9 +277,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
   //   };
 })
 
-.controller('ChatDetail', function($scope, $stateParams, Chats) {
-  //$scope.chat = Chats.get($stateParams.chatId);
-})
+
 
 .controller('SetupCtrl',function($scope,$stateParams,$firebase,$ionicLoading){
   $ionicLoading.show({
@@ -291,32 +294,37 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     });
 })
 
-.controller('ChatCtrl', function ($scope, Chats, $state) {
+.controller('ChatsCtrl', function ($scope, Chats, $state) {
+  console.log('aqui')
+   $scope.chats = Chats.all();
+  $scope.remove = function(chat) {
+    Chats.remove(chat);
+  };
     //console.log("Chat Controller initialized");
 
-    $scope.IM = {
-        textMessage: ""
-    };
+    // $scope.IM = {
+    //     textMessage: ""
+    // };
 
-    Chats.selectRoom($state.params.roomId);
+    // Chats.selectRoom($state.params.roomId);
 
-    var roomName = Chats.getSelectedRoomName();
+    // var roomName = Chats.getSelectedRoomName();
 
-    // Fetching Chat Records only if a Room is Selected
-    if (roomName) {
-        $scope.roomName = " - " + roomName;
-        $scope.chats = Chats.all();
-    }
+    // // Fetching Chat Records only if a Room is Selected
+    // if (roomName) {
+    //     $scope.roomName = " - " + roomName;
+    //     $scope.chats = Chats.all();
+    // }
 
-    $scope.sendMessage = function (msg) {
-        console.log(msg);
-        Chats.send($scope.displayName, msg);
-        $scope.IM.textMessage = "";
-    }
+    // $scope.sendMessage = function (msg) {
+    //     console.log(msg);
+    //     Chats.send($scope.displayName, msg);
+    //     $scope.IM.textMessage = "";
+    // }
 
-    $scope.remove = function (chat) {
-        Chats.remove(chat);
-    }
+    // $scope.remove = function (chat) {
+    //     Chats.remove(chat);
+    // }
 })
 
 .controller('RoomsCtrl', function ($scope, Rooms, Chats, $state) {
