@@ -247,6 +247,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 
 .controller('ChatDetailCtrl', function($scope,$firebase, $stateParams,$ionicLoading) {
   console.log($stateParams.chatId)
+  console.log(firebase.auth())
 
   //$scope.chat = Chats.get($stateParams.chatId);
   $ionicLoading.show({
@@ -256,20 +257,21 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     });
     var ref =firebase.database();
     //var authData = firebase.auth();
-    var authData = firebase.auth().currentUser();
-    var chatRef = ref.ref("/chat");
+    var authData = "1Vak9xGEsrgkKtPZuN4koYWknAA3";
+    var chatRef = ref.ref("/chat/");
     var conversaRef = ref.ref("/conversas");
     var profissional_aluno = $stateParams.chatId+"_"+authData;
 
-    console.log(authData);
+    console.log(profissional_aluno);
 
     chatRef.orderByChild('profissional_aluno').equalTo(profissional_aluno).once("value",function(valor){
       $ionicLoading.hide().then(function(){
             $scope.conversas= valor.val();
+            console.log($scope.conversas)
       });
     });
 
-    console.log($scope.conversas)
+    
 
   // $scope.chats = Chats.all();
   //   $scope.remove = function(chat) {
