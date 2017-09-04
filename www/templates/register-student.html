@@ -66,16 +66,24 @@
                     </select>
                   </label>
 
-                  <label class="item item-input item-select">
+                  <label class="item item-input item-stacked-label">
+                    <span class="input-label">Data Nascimento</span>
+                    <input ng-model="user.nascimento" name="nascimento" type="date" placeholder="Data Nasciemnto" required>
+                    <small ng-show="formRegister.nascimento.$invalid && formRegister.nascimento.$touched" class="assertive">
+                      Campo Obrigatório
+                    </small>
+                  </label>
+
+                  <!-- <label class="item item-input item-select">
                     <div class="input-label">
-                      Data Nascimento
+                      
                     </div>
                     <select ng-model="user.nascimento">
                       <option>date</option>
                       <option selected>Month</option>
                       <option>Red</option>
                     </select>
-                  </label>
+                  </label> -->
 
                    
 
