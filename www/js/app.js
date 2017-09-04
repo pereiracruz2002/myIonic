@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services'])
 
-.run(function($ionicPlatform,$state) {
+.run(function($ionicPlatform,$state,$rootScope,$firebaseAuth,$ionicLoading, $location) {
   $ionicPlatform.ready(function() {
   //   var config = {
   //   apiKey: "AIzaSyBipZxEb3GmFY2eHKmYcv0cYS1MF2U4BW8",
@@ -41,6 +41,25 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocompl
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // $firebaseAuth.$onAuth(function (authData) {
+    //   if (authData) {
+    //     console.log("Logged in as:", authData.uid);
+    //     var ref = firebase.database();
+    //     ref.child("alunos").child(authData.uid).once('value', function (snapshot) {
+    //       var user = snapshot.val();
+    //       $rootScope.currentUser = user;
+    //       //UserService.saveProfile(user);
+    //       //UserService.trackPresence()
+    //     });
+    //   } else {
+    //     $ionicLoading.hide();
+    //     $location.path('/get-in');
+    //   }
+    // });
+
+
+
   });
 })
 

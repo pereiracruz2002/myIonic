@@ -113,6 +113,22 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
       // [END sendemailverification]
     }
 
+    // var geocoder = new google.maps.Geocoder();
+    // $scope.getAddressSuggestions = function(queryString){
+    //     var defer = $q.defer();
+    //     geocoder.geocode(
+    //             {
+    //                 address: queryString,
+    //                 componentRestrictions: {country: 'BR'}
+    //             },
+    //             function (results, status) {
+    //                 if (status == google.maps.GeocoderStatus.OK) { defer.resolve(results); }
+    //                 else { defer.reject(results); }
+    //             }
+    //             );
+    //     return defer.promise;
+    // }
+
     
     $scope.cadastro = function(user){
 
@@ -170,7 +186,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
       });
     };
 })
-.controller('DashCtrl', function($scope, $stateParams,$firebase,$ionicLoading,$q) {
+.controller('DashCtrl', function($scope, $stateParams,$firebase,$firebaseAuth,$ionicLoading,$q) {
 
   $scope.myModel= {'tab': 1};
   $scope.titulo = 'Profissionais';
@@ -179,18 +195,20 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
         city: "",
     };
 
+
     $scope.$watch('formData.city', function(){
-        console.log('aqui')
+
         var dados = $scope.formData.city;
         if(typeof dados === 'object'){
-          console.log(dados.address_components);
+          //console.log(dados.address_components);
+          var bairro = dados.address_components[0].short_name;
           var cidade = dados.address_components[1].short_name;
           var estado = dados.address_components[2].short_name;
           $scope.titulo = 'Eventos Públicos em '+cidade+' - '+estado;
-          var estado_cidade = estado+"_"+cidade;
+          var estado_cidade = cidade+"_"+bairro;
           $ionicLoading.show();
-          console.log(cidade)
-          var ref = firebase.database().ref("/profissionais/").orderByChild('estado_cidade').equalTo(estado_cidade).once("value",function(valor){
+          console.log(estado)
+          var ref = firebase.database().ref("/profissionais/").orderByChild('cidade_bairro').equalTo(estado_cidade).once("value",function(valor){
             console.log(estado_cidade)
             $ionicLoading.hide().then(function(){
               var key = Object.keys(valor.val());
@@ -245,9 +263,9 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
    
 })
 
-.controller('ChatDetailCtrl', function($scope,$firebase, $stateParams,$ionicLoading) {
-  console.log($stateParams.chatId)
-  console.log(firebase.auth())
+.controller('ChatDetailCtrl', function($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading) {
+  // console.log($stateParams.chatId)
+  // console.log(firebase.auth())
 
   //$scope.chat = Chats.get($stateParams.chatId);
   $ionicLoading.show({
@@ -256,20 +274,73 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
           $scope.conversas = [];
     });
     var ref =firebase.database();
-    //var authData = firebase.auth();
-    var authData = "1Vak9xGEsrgkKtPZuN4koYWknAA3";
+    
+    var auth = $firebaseAuth();
+    //var authData = auth.$getAuth().uid;
+    var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
+    // auth.$onAuthStateChanged(function(firebaseUser) {
+
+    //    authData = firebaseUser.uid;
+    //    console.log(authData);
+    // });
+
     var chatRef = ref.ref("/chat/");
     var conversaRef = ref.ref("/conversas");
+    
     var profissional_aluno = $stateParams.chatId+"_"+authData;
 
-    console.log(profissional_aluno);
+    console.log(profissional_aluno)
+
+
 
     chatRef.orderByChild('profissional_aluno').equalTo(profissional_aluno).once("value",function(valor){
       $ionicLoading.hide().then(function(){
-            $scope.conversas= valor.val();
+          
+          var key = Object.keys(valor.val())[0];
+          conversaRef.orderByChild('id').equalTo(key).once("value",function(snapshot){
+            console.log(snapshot.val())
+            $scope.conversas= snapshot.val();
+          });
             console.log($scope.conversas)
       });
     });
+
+
+    $scope.sendMessage = function(){
+
+
+
+      
+      
+      var messge = conversaRef.push();
+            messge.set({
+              id:"1",
+              nome:"Usain",
+              photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+              texto: $scope.data.message
+            }).then(function(retorno){
+              console.log(retorno)
+              // $scope.conversas.push({
+              //   id:"1",
+              //   nome:"Usain",
+              //   photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+              //   texto: $scope.data.message
+
+              // });
+             
+              $ionicScrollDelegate.scrollBottom(true);
+            })
+
+      //$ionicScrollDelegate.scrollBottom(true);
+    }
+
+    $scope.inputUp = function() {
+    //if (isIOS) $scope.data.keyboardHeight = 216;
+    $timeout(function() {
+      $ionicScrollDelegate.scrollBottom(true);
+    }, 300);
+
+  };
 
     
 
