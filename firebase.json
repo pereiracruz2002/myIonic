@@ -12,9 +12,13 @@
     }
   },
   "chat" : [ null, {
-    "profissional_aluno" : "1_ubkRweSJGwT59CUIm3gqNkZnehi1"
+    "profissional_aluno" : "1_ubkRweSJGwT59CUIm3gqNkZnehi1",
+    "profissional": "1",
+    "aluno":"ubkRweSJGwT59CUIm3gqNkZnehi1"
   }, null, {
-    "profissional_aluno" : "1_-Ks0710340X-PgDNqYwQ"
+    "profissional_aluno" : "1_-Ks0710340X-PgDNqYwQ",
+    "profissional": "1",
+    "aluno":"-Ks0710340X-PgDNqYwQ"
   } ],
   "conversas" : [ null, {
     "data" : "22-09-2017",

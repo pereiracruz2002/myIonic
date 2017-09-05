@@ -347,11 +347,6 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 
 
     $scope.sendMessage = function(){
-
-
-
-      
-      
       var messge = conversaRef.push();
             messge.set({
               id:"1",
@@ -407,12 +402,48 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     });
 })
 
-.controller('ChatsCtrl', function ($scope, Chats, $state) {
-  console.log('aqui')
-   $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+.controller('ChatsCtrl', function ($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading) {
+
+  $ionicLoading.show({
+          template: 'Carregando...'
+      }).then(function(){
+          $scope.conversas = [];
+  });
+    var ref =firebase.database();
+    
+    var auth = $firebaseAuth();
+    //var authData = auth.$getAuth().uid;
+    var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
+    // auth.$onAuthStateChanged(function(firebaseUser) {
+
+    //    authData = firebaseUser.uid;
+    //    console.log(authData);
+    // });
+
+    var chatRef = ref.ref("/chat/");
+    var conversaRef = ref.ref("/conversas");
+    var profissionaisRef = ref.ref("/profissionais");
+    
+    var aluno = authData;
+
+    
+
+
+    chatRef.orderByChild('aluno').equalTo(aluno).once("value",function(valor){
+      $ionicLoading.hide().then(function(){
+          
+          var key = Object.keys(valor.val())[0];
+          console.log(valor)
+
+          profissionaisRef.orderByChild('id').equalTo(key).once("value",function(snapshot){
+            console.log(snapshot.val())
+            $scope.conversas= snapshot.val();
+          });
+            console.log($scope.conversas)
+      });
+    });
+  
+ // };
     //console.log("Chat Controller initialized");
 
     // $scope.IM = {
