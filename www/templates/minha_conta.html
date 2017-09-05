@@ -4,93 +4,18 @@
         </ion-nav-back-button>
     </ion-nav-bar>
 
-<ion-content class="register perfil">
-<form name="formRegister" ng-submit="editarDados()">        
-    <div class=" header-perfil">
-        <div class="col-33 col-offset-33 text-center">
-            <h1 id="camera" class="chef-picture" ng-click="choosePicture()" style="background-image:url('{{formData.picture}}'); background-position:center center; background-size:cover;">
-                <span class="fa fa-camera" ng-hide="formData.picture"></span>                    
-                <span  ng-class="formData.user_type_id == '2' ? 'd4ficon-3 pic-chef' : 'd4ficon-2 pic-comilao'"></span>
-            </h1>
-            <div id="escolha_foto" class="text-center" ng-class="formData.user_type_id == '2' ? 'text-purple' : 'text-assertive'">
-                Editar foto
-            </div>                
+ <ion-content>
+      <div class="list card">
+        <ion-item class="profile-item">
+          <div class="profile-picture big-profile-picture">
+            <img src="{{chat.photoURL}}">
+          </div>
+          <h2 class="profile-name dark">{{chat.nome}}</h2>
+          <div class="profile-info">{{chat.sobrenome}}</div>
+        </ion-item>
+        <ion-item class="profile-item">
 
-        </div>
-    </div>
-    <!-- <div class="row">
-        <div class="col">
-            <div class="list">
-                <div class="list-inset">
-                    <label class="item item-input borda">
-                        <i class="icon ion-ios-person-outline placeholder-icon"></i>
-                        <input type="text" placeholder="Nome" ng-model="formData.name" name="name" required>
-                        <small ng-show="formRegister.name.$invalid && formRegister.name.$touched" class="assertive">
-                            Campo Obrigatório
-                        </small>
-                    </label>
-                </div>
-                <div class="list-inset">
-                    <label class="item item-input borda">
-                        <i class="icon ion-ios-person-outline placeholder-icon"></i>
-                        <input type="text" placeholder="Sobrenome" ng-model="formData.lastname" name="lastname" required>
-                        <small ng-show="formRegister.lastname.$invalid && formRegister.lastname.$touched" class="assertive">
-                            Campo Obrigatório
-                        </small>
-
-                    </label>
-                </div>
-
-                <div class="list-inset">
-                    <label class="item item-input borda">
-                        <i class="icon ion-ios-location-outline placeholder-icon"></i>
-                        <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off" ng-model="formData.city" item-view-value-key="formatted_address" items-method="getAddressSuggestions(query)" placeholder="Endereço,Cidade, UF" max-selected-items="1" cancel-label="Cancelar" select-items-label="Selecione uma cidade" />
-                    </label>
-                </div>
-
-                <div class="list-inset">
-                    <label class="item item-input" ng-click="openDatePicker()">
-                        <i class="icon ion-ios-calendar-outline placeholder-icon"></i>
-                        <span class="placeholder">{{birthday_display}}</span>
-                    </label>
-                </div>
-
-                <div class="list-inset">
-                    <label class="item item-input borda">
-                        <i class="icon ion-ios-email-outline placeholder-icon"></i>
-                        <input type="email" placeholder="Email" ng-model="formData.email" name="email" required>
-                        <small ng-show="formRegister.email.$invalid && formRegister.email.$touched" class="assertive">
-                            Campo Obrigatório
-                        </small>
-
-                    </label>
-                </div>
-                <div class="list-inset">
-                    <label class="item item-input borda">
-                        <i class="icon ion-ios-locked-outline placeholder-icon"></i>
-                        <input type="password" ng-minlength="6" placeholder="Senha" ng-model="formData.password" name="password" >
-                        Alterar senha
-                    </label>
-                </div>
-                <div class="list-inset">
-                    <label class="item item-input">
-                        <i class="icon ion-ios-locked-outline placeholder-icon"></i>
-                        <input type="password" placeholder="Confirmar Senha" ng-model="formData.password2" ng-minlength="6" name="password2" data-password-verify="formData.password">
-                        <small ng-show="formRegister.password2.$error.passwordVerify && formRegister.password2.$touched" class="assertive">
-                            As senhas não são iguais!
-                        </small>
-                    </label>
-                </div>
-
-                <div class="padding">
-                    <button class="button button-block button-round button-assertive" ng-disabled="formRegister.$invalid">OK</button>      
-                </div>
-                
-            </div>                    
-        </div>        
-
-    </div> -->
-</form>
-
-</ion-content>
+        </ion-item>
+      </div>
+    </ion-content>
 </ion-view>

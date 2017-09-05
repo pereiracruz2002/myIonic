@@ -156,8 +156,8 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocompl
 
 
   .state('minha_conta', {
-      url: '/minha_conta',
-      /*controller: 'SearchCtrl',*/
+      url: '/minha_conta/:profissionalId',
+      controller: 'PerfilCtrl',
       templateUrl: 'templates/minha_conta.html'
     })
 

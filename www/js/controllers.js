@@ -68,6 +68,18 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 .controller('RegisterCtrl',function($scope,$stateParams,$state,$firebase){
 
 })
+
+.controller('PerfilCtrl',function($scope,$stateParams,$state,$ionicLoading,$firebase){
+  var profissionalId = $stateParams.profissionalId
+  var ref = firebase.database().ref("/profissionais/").orderByChild('id').equalTo(profissionalId).once("value",function(valor){
+      $ionicLoading.hide().then(function(){
+        var key = Object.keys(valor.val());
+        $scope.chats= valor.val(); 
+        $scope.chat = $scope.chats[key]
+        console.log($scope.chats[1])  
+      });
+    });
+})
 .controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q) {
     // firebase.auth().onAuthStateChanged(function(user){
     //   console.log(user)
@@ -236,7 +248,6 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
           $scope.titulo = 'Eventos Públicos em '+cidade+' - '+estado;
           var estado_cidade = cidade+"_"+bairro;
           $ionicLoading.show();
-          console.log(estado)
           var ref = firebase.database().ref("/profissionais/").orderByChild('cidade_bairro').equalTo(estado_cidade).once("value",function(valor){
             console.log(estado_cidade)
             $ionicLoading.hide().then(function(){

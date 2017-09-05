@@ -37,7 +37,7 @@
           <div class="col-80 col-offset-10">
             <ion-list>
               <!-- <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,chat) in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}"> -->
-              <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,chat) in chats" type="item-text-wrap" href="#/tab/minha_conta">
+              <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,chat) in chats" type="item-text-wrap" href="#/minha_conta/{{chat.id}}">
                 <img ng-src="{{chat.photoURL}}">
                 <h2>{{chat.nome}} {{chat.sobrenome}}</h2>
                 <p ng-repeat="especialidade in chat.especialidades">
