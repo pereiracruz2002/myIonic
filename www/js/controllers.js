@@ -22,7 +22,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     };
 
     $scope.$watch('formData.city', function(){
-        console.log('aqui')
+
         var dados = $scope.formData.city;
         if(typeof dados === 'object'){
           var cidade = dados.address_components[1].short_name;
@@ -68,7 +68,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 .controller('RegisterCtrl',function($scope,$stateParams,$state,$firebase){
 
 })
-.controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup) {
+.controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q) {
     // firebase.auth().onAuthStateChanged(function(user){
     //   console.log(user)
     //   if(user){
@@ -101,6 +101,35 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     // $scope.openDatePicker = function(){
     //   ionicDatePicker.openDatePicker(ipObj1);
     // };
+
+    var geocoder = new google.maps.Geocoder();
+    $scope.getAddressSuggestions = function(queryString){
+        var defer = $q.defer();
+        geocoder.geocode(
+          {
+              address: queryString,
+              componentRestrictions: {country: 'BR'}
+          },
+          function (results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                
+                defer.resolve(results); 
+              }
+              else { defer.reject(results); }
+          }
+          );
+        return defer.promise;
+    }
+
+    // $scope.$watch('user.estado', function(){
+      
+    //   var dados = $scope.user.estado;
+    //     if(typeof dados === 'object'){
+    //       var cidade = dados.address_components[1].short_name;
+    //       var estado = dados.address_components[2].short_name;
+    //       $scope.user.estado = cidade+','+estado;
+    //     }
+    // });
 
     function sendEmailVerification() {
       // [START sendemailverification]

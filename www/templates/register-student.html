@@ -124,7 +124,7 @@
 
             </div>
        </ion-tab>
-       <ion-tab title="Professional" >
+       <ion-tab title="Profissional" >
          <ion-nav-view name="professional-tab" ng-show="isSet(2)">
            <div class="cstm-content">
              <a href="#" class="facebook-btn"><i class="icon ion-social-facebook"></i>Entrar com facebook</a>
@@ -182,21 +182,18 @@
                     </select>
                   </label>
 
-                  <label class="item item-input item-select">
-                    <div class="input-label">
-                      Data Nascimento
-                    </div>
-                    <select ng-model="user.nascimento">
-                      <option>date</option>
-                      <option selected>Month</option>
-                      <option>Red</option>
-                    </select>
+                  <label class="item item-input item-stacked-label">
+                    <span class="input-label">Data Nascimento</span>
+                    <input ng-model="user.nascimento" name="nascimento" type="date" placeholder="Data Nasciemnto" required>
+                    <small ng-show="formRegister.nascimento.$invalid && formRegister.nascimento.$touched" class="assertive">
+                      Campo Obrigatório
+                    </small>
                   </label>
 
-                   <label class="item item-input">
+                  <label class="item item-input">
                       <i class="icon ion-ios-location-outline placeholder-icon"></i>
                       <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off" ng-model="user.estado" item-view-value-key="formatted_address" items-method="getAddressSuggestions(query)" placeholder="Bairro, Cidade" max-selected-items="1" cancel-label="Cancelar" select-items-label="Selecione uma cidade" />
-                    </label>
+                  </label>
 
                   <input type="hidden" name="tipo" ng-init="user.tipo='aluno'" ng-model="user.tipo">
                   <ion-checkbox ng-model="filter.red">Li e aceito os termos de uso</ion-checkbox>
