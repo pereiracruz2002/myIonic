@@ -154,6 +154,13 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocompl
     }
   })
 
+
+  .state('minha_conta', {
+      url: '/minha_conta',
+      /*controller: 'SearchCtrl',*/
+      templateUrl: 'templates/minha_conta.html'
+    })
+
   .state('tab.chats', {
       url: '/chats',
       views: {

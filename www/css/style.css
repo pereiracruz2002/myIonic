@@ -481,6 +481,24 @@
   bottom: 0;
   top: auto;
 }
+
+
+.header-perfil {
+    background: #ebe5d9;
+    padding-top: 30px;
+}
+
+.pic-chef {
+  position: absolute;
+  background: #6e2582;
+  font-size: .9em;
+  padding: 9px 10px 3px;
+  border-radius: 50%;
+  right: -30px;
+  top: 25%;
+}
+
+
 /* search ends */
 
 .messages {
