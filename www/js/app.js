@@ -8,6 +8,16 @@
 angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services'])
 
 .run(function($ionicPlatform,$state,$rootScope,$firebaseAuth,$ionicLoading, $location) {
+
+  $ionicPlatform.registerBackButtonAction(function () {
+        if ($state.current.name == "app.profile" || $state.current.name == "login") {
+          // do something for this state
+           navigator.app.exitApp();
+        } else {
+          navigator.app.backHistory();
+        }
+    }, 100);
+
   $ionicPlatform.ready(function() {
   //   var config = {
   //   apiKey: "AIzaSyBipZxEb3GmFY2eHKmYcv0cYS1MF2U4BW8",
@@ -63,12 +73,16 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocompl
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+
+  //$ionicConfigProvider.views.maxCache(0);
+  //$ionicConfigProvider.navBar.alignTitle('center');
+
   $stateProvider
 
     .state('home', {

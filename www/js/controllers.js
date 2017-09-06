@@ -80,7 +80,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
       });
     });
 })
-.controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q) {
+.controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q,$cordovaCamera) {
     // firebase.auth().onAuthStateChanged(function(user){
     //   console.log(user)
     //   if(user){
@@ -113,6 +113,33 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     // $scope.openDatePicker = function(){
     //   ionicDatePicker.openDatePicker(ipObj1);
     // };
+
+
+    $ionicPlatform.ready(function(){
+        if(typeof(Camera) != 'undefined'){
+            var options = {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 300,
+                targetHeight: 300,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false,
+                correctOrientation:true
+            };
+        }
+
+        $scope.choosePicture = function(){
+            $cordovaCamera.getPicture(options).then(function(imageData) {
+                $scope.formData.picture = "data:image/jpeg;base64," + imageData;
+                $scope.formData.new_picture = "data:image/jpeg;base64," + imageData;
+            }, function(err) {
+                // error
+            });
+        }
+    })
 
     var geocoder = new google.maps.Geocoder();
     $scope.getAddressSuggestions = function(queryString){
@@ -306,6 +333,9 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 .controller('ChatDetailCtrl', function($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading) {
   // console.log($stateParams.chatId)
   // console.log(firebase.auth())
+
+  $scope.platform = ionic.Platform.platform();
+  $scope.heightImg = '90';
 
   //$scope.chat = Chats.get($stateParams.chatId);
   $ionicLoading.show({
