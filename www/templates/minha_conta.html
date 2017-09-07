@@ -7,20 +7,15 @@
  <ion-content>
       
       <div class="list card profile-card">
-        <div class="row">
-        <div class="item item-text-wrap col-80">
-            <h2>Meu Perfil</h2>
-        </div>
-        <div class="col-20 position-relative">
-            <a  ng-click="convidar()"><i class="icon ion-gear-a"></i></a>
-        </div>
-      </div>
         <ion-item class="profile-item">
           <div class="profile-picture big-profile-picture">
             <img src="{{chat.photoURL}}">
           </div>
           <h2 class="profile-name dark">{{chat.nome}} {{chat.sobrenome}}</h2>
           <div class="profile-info"><p>{{chat.cidade}} {{chat.estado}}</p></div>
+          <div ng-repeat="treino in chat.treinos" >
+            {{treino.name}}
+          </div>
         </ion-item>
         <ion-item class="profile-item notification">
 
