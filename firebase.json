@@ -61,7 +61,8 @@
     "sobrenome" : "Bolt",
     "sobre" : "Eu sou especialista nos 500 metros rasos",
     "formacao" : "Medalha de ouro",
-     "treinos" : [{"name":"Natacao"},{"name":"Judo"}]
+    "treinos" : [{"name":"Natacao"},{"name":"Judo"}],
+    "locais":[{"local":"Smart Fit","endereco":"R.dos Pinhos,103-Pinheiros,São Paulo-SP,04709-000"}]
   }, {
     "cidade" : "Bauru",
     "email" : "usain@bolt.com.br",
@@ -75,7 +76,8 @@
     "sobrenome" : "Phelps",
     "sobre" : "Eu sou o maior olimpico de todos os tempos",
     "formacao" : "Medalha de ouro",
-    "treinos" : [{"name":"Corrida"},{"name":"Salto"}]
+    "treinos" : [{"name":"Corrida"},{"name":"Salto"}],
+    "locais":[{"local":"Runner Butantã","endereco":"R.Bela Vista,103-Vila São Francisco,São Paulo-SP,04709-000"}]
   } ],
   "treino_profissionais" : [ null, 
   {
