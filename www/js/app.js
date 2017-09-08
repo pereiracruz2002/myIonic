@@ -5,7 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services','ngCordova'])
+
+angular.module('starter', ['ionic','firebase','ionic-material','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services','ngCordova'])
+
 
 .run(function($ionicPlatform,$state,$rootScope,$firebaseAuth,$ionicLoading, $location) {
 
@@ -171,6 +173,7 @@ angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocompl
 
   .state('minha_conta', {
       url: '/minha_conta/:profissionalId',
+      
       controller: 'PerfilCtrl',
       templateUrl: 'templates/minha_conta.html'
     })

@@ -1,4 +1,4 @@
-<ion-view view-title="Perfil">
+<!-- <ion-view view-title="Perfil">
     <ion-nav-bar class="bar-dark">
         <ion-nav-back-button>
         </ion-nav-back-button>
@@ -7,20 +7,15 @@
  <ion-content>
       
       <div class="list card profile-card">
-        <div class="row">
-        <div class="item item-text-wrap col-80">
-            <h2>Meu Perfil</h2>
-        </div>
-        <div class="col-20 position-relative">
-            <a  ng-click="convidar()"><i class="icon ion-gear-a"></i></a>
-        </div>
-      </div>
         <ion-item class="profile-item">
           <div class="profile-picture big-profile-picture">
             <img src="{{chat.photoURL}}">
           </div>
           <h2 class="profile-name dark">{{chat.nome}} {{chat.sobrenome}}</h2>
           <div class="profile-info"><p>{{chat.cidade}} {{chat.estado}}</p></div>
+          <div ng-repeat="treino in chat.treinos" >
+            {{treino.name}}
+          </div>
         </ion-item>
         <ion-item class="profile-item notification">
 
@@ -28,4 +23,55 @@
       </div>
 
     </ion-content>
-</ion-view>
+</ion-view> -->
+<!-- <ion-nav-view name="fabContent" class="view-container" nav-view-transition="ios" nav-view-direction="forward" nav-swipe=""><button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin pane on" nav-view="active" style="opacity: 1; box-shadow: rgba(0, 0, 0, 0) 0px 0px 10px; transform: translate3d(0%, 0px, 0px);"><i class="icon ion-chatbubbles"></i></button></ion-nav-view> -->
+
+<ion-header-bar class="bar-assertive-900 bar bar-header disable-user-behavior" align-title="left">
+  <button class="button back-button hide buttons no-text button-clear header-item" ng-click="$ionicGoBack($event)"><i class="icon ion-ios-arrow-back"></i> 
+            <span class="back-text"><span class="default-title">Back</span><span class="previous-title hide"></span></span></button><div class="title title-left header-item" style="right: 68px;">Perfil</div><div class="buttons buttons-right header-item"><span class="right-buttons">
+                <button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="right">
+                </button>
+            </span></div>
+</ion-header-bar>
+          <ion-content ng-class="{expanded:$scope.isExpanded}" class="scroll-content ionic-scroll  has-header">
+
+          <div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+            <div class="hero " style="background-image: url('img/profile-bg.jpg');">
+              <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900 pane" nav-view="active" style="opacity: 1; box-shadow: rgba(0, 0, 0, 0) 0px 0px 10px; transform: translate3d(0%, 0px, 0px);"><i class="icon ion-plus"></i></button>
+                <div class="content">
+                    <div class="avatar" style="background-image: url('{{chat.photoURL}}');"></div>
+                    <h3><a class="light">Daenerys Targaryen</a></h3>
+                    <h4>dragon_mommy</h4>
+                </div>
+            </div>
+
+          <h4 class="content padding double-padding-x">Especialidades</h4>
+            <div class="list list-inset"> 
+              <a ng-repeat="treino in chat.treinos" class="item item-thumbnail-left"> 
+                <img src="img/ionic.png"> <p>{{treino.name}}</p>
+              </a> 
+            </div>
+          <h4 class="content padding double-padding-x">Formação</h4>
+          <div class="list list-inset"> 
+            <p>{{chat.formacao}}</p>
+          </div>
+          <h4 class="content padding double-padding-x">Sobre Mim</h4>
+          <div class="list list-inset"> 
+            <p>{{chat.formacao}}</p>
+          </div>
+          <h4 class="content padding double-padding-x">Locais de Atendimento</h4>
+            <div class="list list-inset"> 
+              <a ng-repeat="local in chat.locais" class="item item-thumbnail-left"> 
+                <img src="img/ionic.png"> <p>{{local.local}}</p>
+                <p>{{local.endereco}}</p>
+              </a> 
+            </div>
+
+                
+    </div>
+    <div class="scroll-bar scroll-bar-v">
+      <div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 297px;">
+        
+      </div>
+    </div>
+  </ion-content>

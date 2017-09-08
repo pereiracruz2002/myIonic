@@ -70,13 +70,19 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 })
 
 .controller('PerfilCtrl',function($scope,$stateParams,$state,$ionicLoading,$firebase){
-  var profissionalId = $stateParams.profissionalId
+  var profissionalId = $stateParams.profissionalId;
+  var treinos = [];
+  var refTreino  = firebase.database().ref("/treino_profissionais");
   var ref = firebase.database().ref("/profissionais/").orderByChild('id').equalTo(profissionalId).once("value",function(valor){
       $ionicLoading.hide().then(function(){
         var key = Object.keys(valor.val());
         $scope.chats= valor.val(); 
         $scope.chat = $scope.chats[key]
-        console.log($scope.chats[1])  
+        refTreino  = firebase.database().ref("/treino_profissionais").orderByChild('profissionalId').equalTo(1).once("value",function(snapshot){
+          treinos = snapshot.val();
+        });
+        //$scope.chat = {'treinos':treinos};
+        console.log($scope.chat)  
       });
     });
 })
@@ -451,7 +457,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     // });
 
     var chatRef = ref.ref("/chat/");
-    var conversaRef = ref.ref("/conversas");
+
     var profissionaisRef = ref.ref("/profissionais");
     
     var aluno = authData;

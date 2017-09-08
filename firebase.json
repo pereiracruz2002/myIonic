@@ -58,25 +58,43 @@
     "nome" : "Usain",
     "photoURL" : "http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
     "sexo" : "Masculino",
-    "sobrenome" : "Bolt"
+    "sobrenome" : "Bolt",
+    "sobre" : "Eu sou especialista nos 500 metros rasos",
+    "formacao" : "Medalha de ouro",
+    "treinos" : [{"name":"Natacao"},{"name":"Judo"}],
+    "locais":[{"local":"Smart Fit","endereco":"R.dos Pinhos,103-Pinheiros,São Paulo-SP,04709-000"}]
   }, {
     "cidade" : "Bauru",
     "email" : "usain@bolt.com.br",
     "estado" : "SP",
     "cidade_bairro" : "São Paulo_Morumbi",
-    "id" : "1",
+    "id" : "2",
     "nascimento" : "date",
     "nome" : "Michael",
     "photoURL" : "http://i2.cdn.cnn.com/cnnnext/dam/assets/160630101057-michael-phelps-u-s-trials-exlarge-169.jpg",
     "sexo" : "Masculino",
-    "sobrenome" : "Phelps"
+    "sobrenome" : "Phelps",
+    "sobre" : "Eu sou o maior olimpico de todos os tempos",
+    "formacao" : "Medalha de ouro",
+    "treinos" : [{"name":"Corrida"},{"name":"Salto"}],
+    "locais":[{"local":"Runner Butantã","endereco":"R.Bela Vista,103-Vila São Francisco,São Paulo-SP,04709-000"}]
   } ],
-  "treino_profissionais" : [ null, {
+  "treino_profissionais" : [ null, 
+  {
     "profissionaisId" : 1,
-    "treinoId" : 1
-  }, {
+    "treinoId" : 1,
+    "treino" : "Corrida"
+  }, 
+  {
+    "profissionaisId" : 1,
+    "treinoId" : 3,
+    "treino" : "Luta"
+  }, 
+
+  {
     "profissionaisId" : 2,
-    "treinoId" : 2
+    "treinoId" : 2,
+    "treino" : "Natacao"
   } ],
   "treinos" : [ null, {
     "modalidade" : "Corrida"
