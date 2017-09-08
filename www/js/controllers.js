@@ -80,7 +80,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
       });
     });
 })
-.controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q,$cordovaCamera) {
+.controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q,$cordovaCamera,$ionicPlatform) {
     // firebase.auth().onAuthStateChanged(function(user){
     //   console.log(user)
     //   if(user){
@@ -134,7 +134,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
         $scope.choosePicture = function(){
             $cordovaCamera.getPicture(options).then(function(imageData) {
                 $scope.formData.picture = "data:image/jpeg;base64," + imageData;
-                $scope.formData.new_picture = "data:image/jpeg;base64," + imageData;
+                //$scope.formData.new_picture = "data:image/jpeg;base64," + imageData;
             }, function(err) {
                 // error
             });
