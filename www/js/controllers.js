@@ -439,7 +439,7 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 })
 
 .controller('ChatsCtrl', function ($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading) {
-
+  console.log('chatCtrl')
   $ionicLoading.show({
           template: 'Carregando...'
       }).then(function(){
