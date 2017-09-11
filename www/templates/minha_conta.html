@@ -26,52 +26,26 @@
 </ion-view> -->
 <!-- <ion-nav-view name="fabContent" class="view-container" nav-view-transition="ios" nav-view-direction="forward" nav-swipe=""><button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin pane on" nav-view="active" style="opacity: 1; box-shadow: rgba(0, 0, 0, 0) 0px 0px 10px; transform: translate3d(0%, 0px, 0px);"><i class="icon ion-chatbubbles"></i></button></ion-nav-view> -->
 
-<ion-header-bar class="bar-assertive-900 bar bar-header disable-user-behavior" align-title="left">
-  <button class="button back-button hide buttons no-text button-clear header-item" ng-click="$ionicGoBack($event)"><i class="icon ion-ios-arrow-back"></i> 
-            <span class="back-text"><span class="default-title">Back</span><span class="previous-title hide"></span></span></button><div class="title title-left header-item" style="right: 68px;">Perfil</div><div class="buttons buttons-right header-item"><span class="right-buttons">
-                <button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="right">
-                </button>
-            </span></div>
-</ion-header-bar>
-          <ion-content ng-class="{expanded:$scope.isExpanded}" class="scroll-content ionic-scroll  has-header">
-
-          <div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
-            <div class="hero " style="background-image: url('img/profile-bg.jpg');">
-              <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900 pane" nav-view="active" style="opacity: 1; box-shadow: rgba(0, 0, 0, 0) 0px 0px 10px; transform: translate3d(0%, 0px, 0px);"><i class="icon ion-plus"></i></button>
-                <div class="content">
-                    <div class="avatar" style="background-image: url('{{chat.photoURL}}');"></div>
-                    <h3><a class="light">Daenerys Targaryen</a></h3>
-                    <h4>dragon_mommy</h4>
-                </div>
-            </div>
-
-          <h4 class="content padding double-padding-x">Especialidades</h4>
-            <div class="list list-inset"> 
-              <a ng-repeat="treino in chat.treinos" class="item item-thumbnail-left"> 
-                <img src="img/ionic.png"> <p>{{treino.name}}</p>
-              </a> 
-            </div>
-          <h4 class="content padding double-padding-x">Formação</h4>
-          <div class="list list-inset"> 
-            <p>{{chat.formacao}}</p>
-          </div>
-          <h4 class="content padding double-padding-x">Sobre Mim</h4>
-          <div class="list list-inset"> 
-            <p>{{chat.formacao}}</p>
-          </div>
-          <h4 class="content padding double-padding-x">Locais de Atendimento</h4>
-            <div class="list list-inset"> 
-              <a ng-repeat="local in chat.locais" class="item item-thumbnail-left"> 
-                <img src="img/ionic.png"> <p>{{local.local}}</p>
-                <p>{{local.endereco}}</p>
-              </a> 
-            </div>
-
-                
-    </div>
-    <div class="scroll-bar scroll-bar-v">
-      <div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 297px;">
+<div user-profile-header class="text-center profile-info">
+        <div class="text-center">
+            <img class="user-profile-image" ng-src="{{chat.photoURL}}">
+        </div>
+        <div class="user-profile-name ellipsis">{{chat.nome}} {{chat.sobrenome}}</div>
+        <div class="user-profile-name ellipsis">{{chat.cidade}} {{chat.estado}}</div>
+        <button ng-click="" class="button button-confirm button-circle button-positive" ng-class="" ><i class="icon ion-edit"></i>
+        </button>
         
-      </div>
     </div>
-  </ion-content>
+    <div user-profile-sub-header>
+        <div class="row">
+            <i class="ion-android-arrow-back col col-10"></i>
+            <div class="col col-90">Rishi Vedpathak</div>
+        </div>
+    </div>
+    <ion-content ion-parallax-profile delegate-handle="profileScroll" bounce="false">
+        <p ng-repeat="val in [0]" class="card padding">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </ion-content>
+
+
