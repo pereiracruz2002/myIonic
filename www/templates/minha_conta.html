@@ -26,7 +26,7 @@
 </ion-view> -->
 <!-- <ion-nav-view name="fabContent" class="view-container" nav-view-transition="ios" nav-view-direction="forward" nav-swipe=""><button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin pane on" nav-view="active" style="opacity: 1; box-shadow: rgba(0, 0, 0, 0) 0px 0px 10px; transform: translate3d(0%, 0px, 0px);"><i class="icon ion-chatbubbles"></i></button></ion-nav-view> -->
 
-<ion-header-bar class="bar-assertive-900 bar bar-header disable-user-behavior" align-title="left">
+<!-- <ion-header-bar class="bar-assertive-900 bar bar-header disable-user-behavior" align-title="left">
   <button class="button back-button hide buttons no-text button-clear header-item" ng-click="$ionicGoBack($event)"><i class="icon ion-ios-arrow-back"></i> 
             <span class="back-text"><span class="default-title">Back</span><span class="previous-title hide"></span></span></button><div class="title title-left header-item" style="right: 68px;">Perfil</div><div class="buttons buttons-right header-item"><span class="right-buttons">
                 <button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="right">
@@ -74,4 +74,42 @@
         
       </div>
     </div>
-  </ion-content>
+  </ion-content> -->
+
+ <ion-view view-title="Perfil">
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    
+    <ion-content has-header="true">
+      <div id="profile-bg"></div>
+      <div id="content">
+        <div id="profile-info">
+          <img id="profile-image" src="{{chat.photoURL}}">
+          <h3 id="profile-name">{{chat.nome}} {{chat.sobrenome}}</h3>
+          <span id="profile-description">{{chat.cidade}} {{chat.estado}}</span>
+          <a href="#/tab/chats/{{chatId.profissional}}" id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin pane on" nav-view="active" style="opacity: 1; box-shadow: rgba(0, 0, 0, 0) 0px 0px 10px; transform: translate3d(0%, 0px, 0px);"><i class="icon ion-chatbubbles"></i></a>
+        </div>
+        <div class = "list">
+           <div class = "item item-divider">Especialidades</div>
+           <div ng-repeat="treino in chat.treinos" class = "item"> {{treino.name}}</div>
+        </div>
+        <div class = "list">
+           <div class = "item item-divider">Formação</div>
+           <div class = "item"> {{chat.formacao}}</div>
+        </div>
+        <div class = "list">
+           <div class = "item item-divider">Sobre Mim</div>
+           <div class = "item"> {{chat.sobre}}</div>
+        </div>
+      </div>
+      <div class = "list">
+           <div class = "item item-divider">Locais de Atendimento</div>
+           <div ng-repeat="local in chat.locais" class = "item"> 
+            <p>{{local.local}}</p>
+            <p>{{local.endereco}}</p>
+          </div>
+        </div>
+    </ion-content>
+  </ion-view>

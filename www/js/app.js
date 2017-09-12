@@ -6,10 +6,10 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic','firebase','ionic-material','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services','ngCordova'])
+//angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services','ngCordova'])
 
 
-.run(function($ionicPlatform,$state,$rootScope,$firebaseAuth,$ionicLoading, $location) {
+App.run(function($ionicPlatform,$state,$rootScope,$firebaseAuth,$ionicLoading, $location) {
 
   $ionicPlatform.registerBackButtonAction(function () {
         if ($state.current.name == "app.profile" || $state.current.name == "login") {
@@ -99,7 +99,6 @@ angular.module('starter', ['ionic','firebase','ionic-material','ionic-datepicker
 
     .state('intro', {
       url: '/intro',
-
       templateUrl: 'templates/intro.html'
     })
 

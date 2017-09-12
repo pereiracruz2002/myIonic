@@ -1,8 +1,13 @@
-var App =angular.module('starter.controllers', ['ionic','firebase'])
-.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q) {
+angular.module('starter.controllers', ['ionic','firebase'])
+App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q,UserService) {
+    
+
     $scope.signIn = function (user) {
+      var usuario = "";
       firebase.auth().signInWithEmailAndPassword(user.email,user.password).then(function(result) {
         console.log(result)
+        var usuario = { 'uid':result.uid}
+        UserService.saveProfile(usuario);
       $state.go('tab.dash'); //4
       },function(error) {
            var alertPopup = $ionicPopup.alert({
@@ -11,6 +16,8 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
             });
           }
       );
+
+      
     }
 })
 
@@ -69,20 +76,37 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
 
 })
 
-.controller('PerfilCtrl',function($scope,$stateParams,$state,$ionicLoading,$firebase){
+.controller('PerfilCtrl',function($scope,$stateParams,$state,$ionicLoading,$firebase,$firebaseAuth){
   var profissionalId = $stateParams.profissionalId;
   var treinos = [];
   var refTreino  = firebase.database().ref("/treino_profissionais");
+
+    //var auth = $firebaseAuth();
+    //var authData = auth.$getAuth().uid;
+    var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
+
+
+
+   
+    
+    var profissional_aluno = $stateParams.profissionalId+"_"+authData;
+
+
+
   var ref = firebase.database().ref("/profissionais/").orderByChild('id').equalTo(profissionalId).once("value",function(valor){
       $ionicLoading.hide().then(function(){
         var key = Object.keys(valor.val());
         $scope.chats= valor.val(); 
         $scope.chat = $scope.chats[key]
-        refTreino  = firebase.database().ref("/treino_profissionais").orderByChild('profissionalId').equalTo(1).once("value",function(snapshot){
-          treinos = snapshot.val();
+        // refTreino  = firebase.database().ref("/treino_profissionais").orderByChild('profissionalId').equalTo(1).once("value",function(snapshot){
+        //   treinos = snapshot.val();
+        // });
+        refChat  = firebase.database().ref("/chat").orderByChild('profissional_aluno').equalTo(profissional_aluno).once("value",function(snapshot){
+          $scope.chatId = snapshot.val();
+          console.log($scope.chatId)
         });
-        //$scope.chat = {'treinos':treinos};
-        console.log($scope.chat)  
+        //$scope.chatId =$scope.chatId {'treinos':treinos};
+         
       });
     });
 })
@@ -361,9 +385,9 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
     // });
 
     var chatRef = ref.ref("/chat/");
-    var conversaRef = ref.ref("/conversas");
-    
+    var conversaRef = ref.ref("/conversas");    
     var profissional_aluno = $stateParams.chatId+"_"+authData;
+    $scope.conversas = '';
 
     console.log(profissional_aluno)
 
@@ -391,14 +415,14 @@ var App =angular.module('starter.controllers', ['ionic','firebase'])
               texto: $scope.data.message
             }).then(function(retorno){
               console.log(retorno)
-              // $scope.conversas.push({
-              //   id:"1",
-              //   nome:"Usain",
-              //   photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
-              //   texto: $scope.data.message
+              $scope.conversas.push({
+                id:"1",
+                nome:"Usain",
+                photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+                texto: $scope.data.message
 
-              // });
-             
+              });
+
               $ionicScrollDelegate.scrollBottom(true);
             })
 
