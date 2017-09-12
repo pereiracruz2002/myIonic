@@ -6,7 +6,11 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
+
 //angular.module('starter', ['ionic','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services','ngCordova'])
+
+//angular.module('starter', ['ionic','ion-cool-profile','firebase','ionic-datepicker', 'ion-autocomplete','starter.controllers','starter.services','ngCordova'])
+
 
 
 App.run(function($ionicPlatform,$state,$rootScope,$firebaseAuth,$ionicLoading, $location) {

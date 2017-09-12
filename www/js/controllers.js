@@ -463,7 +463,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
 })
 
 .controller('ChatsCtrl', function ($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading) {
-
+  console.log('chatCtrl')
   $ionicLoading.show({
           template: 'Carregando...'
       }).then(function(){
