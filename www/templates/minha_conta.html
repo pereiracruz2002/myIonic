@@ -1,4 +1,4 @@
-<ion-view view-title="Perfil">
+<!-- <ion-view view-title="Perfil">
     <ion-nav-bar class="bar-dark">
         <ion-nav-back-button>
         </ion-nav-back-button>
@@ -34,5 +34,27 @@
           </div>
         </div>
     </ion-content>
-  </ion-view>
-
+  </ion-view> -->
+<div class="ionic">
+        <div class="bar bar-header bar-positive">
+            <button class="button button-icon icon ion-person-add flat"></button>
+            <button class="button button-icon icon ion-heart flat pull-right"></button>
+            <h1 class="title fab-left">Profile</h1>
+        </div>
+        <a class="button button-fab button-fab-top-right button-calm icon ion-chatbubbles waves-effect waves-button waves-light" href="#/tab/chats/{{chatId.profissional}}"></a>
+        <div class="content has-header">
+            <div class="hero has-mask " style="background-image: url('../img/cover-image.jpg');">
+                <div class="content">
+                    <div class="avatar" style="background-image: url('{{chat.photoURL}}');"></div>
+                    <h3><a class="light">{{chat.nome}} {{chat.sobrenome}}</a></h3>
+                    <h4>English Teacher</h4>
+                </div>
+            </div>
+            
+            <h4 class="positive content padding double-padding-x">Formação</h4>
+            <div class="list animate-fade-slide-in-right">
+            <p ng-repeat="treino in chat.treinos" class = "item"> {{treino.name}}</p> 
+                
+            </div>
+        </div>
+    </div>

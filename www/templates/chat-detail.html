@@ -1,11 +1,4 @@
-<!--
-  This template loads for the 'tab.friend-detail' state (app.js)
-  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
-  The FriendsCtrl pulls data from the Friends service (service.js)
-  The Friends service returns an array of friend data
--->
-
-<ion-view view-title="{{conversas[0].profissional_aluno}}">
+<!-- <ion-view view-title="{{conversas[0].profissional_aluno}}">
 <ion-scroll style="height: 500px">
   <ion-list>
     <ion-item class="item-avatar item-icon-right" ng-repeat="(key,conversa) in conversas">
@@ -15,23 +8,31 @@
     </ion-item>
   </ion-list>
 </ion-scroll>
-  <!-- <ion-content class="content-stable"
-                 on-swipe-left="hideTime = false"
-                 on-swipe-right="hideTime = true">
 
-      <div ng-repeat="conversa in conversas"
-           class="messages">
+  <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+      <label class="item-input-wrapper">
+        <input type="text" placeholder="Type your message" on-return="sendMessage(); closeKeyboard()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()" />
+      </label>
+      <button class="button button-clear" ng-click="sendMessage()">
+        Send
+      </button>
+    </ion-footer-bar>
+</ion-view> -->
 
-        <div class="message" ng-class="{'slide-right': hideTime, '': !hideTime}">
-          <span>{{conversa.texto}}</span>
-        </div>
+<ion-view view-title="Chats">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,conversa) in conversas" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+        <img ng-src="{{conversa.photoURL}}">
+        <p>{{{{conversa.texto}}}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
 
-
-
-
-      </div>
-
-    </ion-content> -->
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
   <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
       <label class="item-input-wrapper">
         <input type="text" placeholder="Type your message" on-return="sendMessage(); closeKeyboard()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()" />
