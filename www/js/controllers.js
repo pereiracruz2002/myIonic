@@ -110,7 +110,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
       });
     });
 })
-.controller('StudentCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q,$cordovaCamera,$ionicPlatform) {
+.controller('StudentCtrl', function ($scope, $stateParams,$firebase, $firebaseArray,$state,$ionicPopup,$q,$cordovaCamera,$ionicPlatform) {
     // firebase.auth().onAuthStateChanged(function(user){
     //   console.log(user)
     //   if(user){
@@ -123,6 +123,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     //   }   
     // });
     $scope.myModel= {'tab': 1};
+    $scope.images = [];
     // var datePickerObj = {
     //   inputDate: new Date(),
     //   titleLabel: 'Select a Date',
@@ -143,7 +144,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     // $scope.openDatePicker = function(){
     //   ionicDatePicker.openDatePicker(ipObj1);
     // };
-
+     
 
     $ionicPlatform.ready(function(){
         if(typeof(Camera) != 'undefined'){
@@ -161,14 +162,35 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
             };
         }
 
-        $scope.choosePicture = function(){
-            $cordovaCamera.getPicture(options).then(function(imageData) {
-                $scope.formData.picture = "data:image/jpeg;base64," + imageData;
-                //$scope.formData.new_picture = "data:image/jpeg;base64," + imageData;
-            }, function(err) {
-                // error
+        $scope.choosePicture = function() {
+          
+          var ref = firebase.database();
+          var userReference = ref.ref("fotos/");
+          var syncArray = $firebaseArray(userReference.child("images"));
+
+          $cordovaCamera.getPicture(options).then(function(imageData) {
+            var picture = "data:image/jpeg;base64," + imageData;
+              syncArray.$add({image: picture}).then(function() {
+                  alert("Image has been uploaded");
             });
+          }, function(error) {
+              console.error(error);
+          });
         }
+
+        // $scope.choosePicture = function(){
+        //     $cordovaCamera.getPicture(options).then(function(imageData) {
+        //         $scope.formData.picture = "data:image/jpeg;base64," + imageData;
+        //         var storageRef = firebase.storage().ref();
+        //         var  imageRef = storageRef.child('images/'+imageData);
+        //         imageRef.putString(this.captureDataUrl, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
+                
+        //       });
+        //         //$scope.formData.new_picture = "data:image/jpeg;base64," + imageData;
+        //     }, function(err) {
+        //         // error
+        //     });
+        // }
     })
 
     var geocoder = new google.maps.Geocoder();
