@@ -1,27 +1,4 @@
-
-<!-- <ion-view view-title="Chats">
-
-<ion-view view-title="Chats">
-  
-
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="conversa in conversas" type="item-text-wrap" href="#/tab/chats/{{conversa.id}}">
-        <img ng-src="{{conversa.photoURL}}">
-        <h2>{{conversa.nome}}</h2>
-        <p>{{conversa.sobrenome}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-</ion-view> -->
-
-
-
+<!-- 
     <div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
         <div class="content has-header">
             <div class="list animate-fade-slide-in-right">
@@ -36,4 +13,25 @@
     <div class="scroll-bar scroll-bar-v">
         <div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 519px;"></div>
     </div>
-</ion-content>
+</ion-content> -->
+<ion-view view-title="Motion Lists">
+    <ion-content>
+
+        <div class="im-wrapper">
+            <h4 class="no-border no-padding-bottom">List Motions</h4>
+            <strong>Tap an item</strong>
+        </div>
+          <ion-list class="animate-ripple">
+              <ion-item nav-clear ng-repeat="conversa in conversas" menu-close class="item-icon-right item-avatar" ng-click="blinds();">
+                  <a href="#/tab/chats/{{conversa.id}}"><img src="{{conversa.photoURL}}"></a>
+                  <h2>{{conversa.sobrenome}}</h2>
+                  <p>ionicMaterialMotion.blinds();</p>
+                  <i class="icon ion-chatbubble muted"></i>
+              </ion-item>
+          </ion-list>
+        </div>
+        <br />
+        <br />
+        <br />
+    </ion-content>
+</ion-view>

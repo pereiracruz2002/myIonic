@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic','firebase'])
+angular.module('starter.controllers', ['ionic','ionic-material','firebase'])
 App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ionicPopup,$q,UserService) {
     
 
@@ -284,7 +284,63 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
       });
     };
 })
-.controller('DashCtrl', function($scope, $stateParams,$firebase,$firebaseAuth,$ionicLoading,$q) {
+.controller('DashCtrl', function($scope, $stateParams,$firebase,$firebaseAuth,$ionicLoading,$q,ionicMaterialMotion) {
+
+  var reset = function() {
+        var inClass = document.querySelectorAll('.in');
+        for (var i = 0; i < inClass.length; i++) {
+            inClass[i].classList.remove('in');
+            inClass[i].removeAttribute('style');
+        }
+        var done = document.querySelectorAll('.done');
+        for (var i = 0; i < done.length; i++) {
+            done[i].classList.remove('done');
+            done[i].removeAttribute('style');
+        }
+        var ionList = document.getElementsByTagName('ion-list');
+        for (var i = 0; i < ionList.length; i++) {
+            var toRemove = ionList[i].className;
+            if (/animate-/.test(toRemove)) {
+                ionList[i].className = ionList[i].className.replace(/(?:^|\s)animate-\S*(?:$|\s)/, '');
+            }
+        }
+    };
+
+    $scope.ripple = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-ripple';
+        setTimeout(function() {
+            ionicMaterialMotion.ripple();
+        }, 500);
+    };
+
+    $scope.fadeSlideInRight = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-fade-slide-in-right';
+        setTimeout(function() {
+            ionicMaterialMotion.fadeSlideInRight();
+        }, 500);
+    };
+
+    $scope.fadeSlideIn = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-fade-slide-in';
+        setTimeout(function() {
+            ionicMaterialMotion.fadeSlideIn();
+        }, 500);
+    };
+
+    $scope.blinds = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
+        setTimeout(function() {
+            ionicMaterialMotion.blinds(); // ionic.material.motion.blinds(); //ionicMaterialMotion
+        }, 500);
+    };
+
+    
+
+
 
   $scope.myModel= {'tab': 1};
   $scope.titulo = 'Profissionais';
@@ -313,6 +369,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
               // $scope.chats= {id:key};
               $scope.chats= valor.val();
               console.log($scope.chats)
+              $scope.blinds(); 
             });
           });
 
@@ -336,7 +393,8 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
       $ionicLoading.hide().then(function(){
         var key = Object.keys(valor.val());
         $scope.chats= valor.val();
-        console.log($scope.chats)     
+        console.log($scope.chats) 
+        $scope.blinds();    
       });
     });
 
@@ -462,8 +520,64 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     });
 })
 
-.controller('ChatsCtrl', function ($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading) {
-  console.log('chatCtrl')
+.controller('ChatsCtrl', function ($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading,ionicMaterialMotion) {
+  
+  var reset = function() {
+        var inClass = document.querySelectorAll('.in');
+        for (var i = 0; i < inClass.length; i++) {
+            inClass[i].classList.remove('in');
+            inClass[i].removeAttribute('style');
+        }
+        var done = document.querySelectorAll('.done');
+        for (var i = 0; i < done.length; i++) {
+            done[i].classList.remove('done');
+            done[i].removeAttribute('style');
+        }
+        var ionList = document.getElementsByTagName('ion-list');
+        for (var i = 0; i < ionList.length; i++) {
+            var toRemove = ionList[i].className;
+            if (/animate-/.test(toRemove)) {
+                ionList[i].className = ionList[i].className.replace(/(?:^|\s)animate-\S*(?:$|\s)/, '');
+            }
+        }
+    };
+
+    $scope.ripple = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-ripple';
+        setTimeout(function() {
+            ionicMaterialMotion.ripple();
+        }, 500);
+    };
+
+    $scope.fadeSlideInRight = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-fade-slide-in-right';
+        setTimeout(function() {
+            ionicMaterialMotion.fadeSlideInRight();
+        }, 500);
+    };
+
+    $scope.fadeSlideIn = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-fade-slide-in';
+        setTimeout(function() {
+            ionicMaterialMotion.fadeSlideIn();
+        }, 500);
+    };
+
+    $scope.blinds = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
+        setTimeout(function() {
+            ionicMaterialMotion.blinds(); // ionic.material.motion.blinds(); //ionicMaterialMotion
+        }, 500);
+    };
+
+    
+
+
+
   $ionicLoading.show({
           template: 'Carregando...'
       }).then(function(){
@@ -502,33 +616,11 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
             console.log($scope.conversas)
       });
     });
+
+
+    $scope.blinds();
   
- // };
-    //console.log("Chat Controller initialized");
 
-    // $scope.IM = {
-    //     textMessage: ""
-    // };
-
-    // Chats.selectRoom($state.params.roomId);
-
-    // var roomName = Chats.getSelectedRoomName();
-
-    // // Fetching Chat Records only if a Room is Selected
-    // if (roomName) {
-    //     $scope.roomName = " - " + roomName;
-    //     $scope.chats = Chats.all();
-    // }
-
-    // $scope.sendMessage = function (msg) {
-    //     console.log(msg);
-    //     Chats.send($scope.displayName, msg);
-    //     $scope.IM.textMessage = "";
-    // }
-
-    // $scope.remove = function (chat) {
-    //     Chats.remove(chat);
-    // }
 })
 
 .controller('RoomsCtrl', function ($scope, Rooms, Chats, $state) {
