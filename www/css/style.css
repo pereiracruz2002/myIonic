@@ -685,3 +685,16 @@
   border-radius: 100%;
 }
 
+#capaMapa {
+    display:none;
+    background-color:white;
+    position:fixed;
+    top:160%;
+    left:50%;
+    width:600px;
+    height:400px;
+    margin-top:-200px;
+    margin-left:-300px;
+    z-index:9900;
+}
+

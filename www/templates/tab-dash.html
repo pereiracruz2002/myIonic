@@ -1,78 +1,16 @@
-<!-- <ion-view>
-
-    <ion-content>
-        <div class="list">
-            <div class="item item-input-inset subheader">
-                <label class="item-input-wrapper">
-                     <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete col-90" autocomplete="off" ng-model="formData.city" item-view-value-key="formatted_address" items-method="getAddressSuggestions(query)" placeholder="Bairro, Cidade" max-selected-items="1" cancel-label="Cancelar" select-items-label="Selecione uma cidade" />
-                    <button class="button button-small">
-                        <i class="icon ion-ios-search"></i>
-                    </button>
-                </label>
-            </div>
-        </div>
-        <div class="row nopadding">
-            <div class="col nopadding">
-                <button class="button button-small button-block" ng-click="myModel.tab=1" ng-class="myModel.tab==1 ? 'active' : ''"><i class="icon ion-funnel"></i> Lista</button>
-            </div>
-            <div class="col nopadding">
-                <button class="button button-small button-block" ng-click="myModel.tab=2" ng-class="myModel.tab==2 ? 'assertive active' : ''"><i class="icon ion-earth"></i> Mapas</button>
-            </div>
-        </div>
-
-        <div ng-show="myModel.tab==1" id="lista">
-
-          <div class="col-100 ">
-            <div class="card eventos_publicos"  ng-if="chats.length == 0">
-                <p>No momento nao temos ninguem cadastrado</p>    
-            </div>
-          </div>
-          <div class="col-80 col-offset-10">
-            <ion-list>
-
-              <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,chat) in chats" type="item-text-wrap" href="#/minha_conta/{{chat.id}}">
-                <img ng-src="{{chat.photoURL}}">
-                <h2>{{chat.nome}} {{chat.sobrenome}}</h2>
-                <p ng-repeat="especialidade in chat.especialidades">
-                  {{especialidade}}
-                </p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-
-                <ion-option-button class="button-assertive" ng-click="remove(chat)">
-                  Delete
-                </ion-option-button>
-              </ion-item>
-            </ion-list>
-          </div>
-      </div>
-      <div ng-show="myModel.tab==2" id="mapa">
-        <div class="col-80 col-offset-10">
-             
-             Mapa
- 
-        </div>
-      </div>
-    </ion-content>
-</ion-view> -->
-
-
 <ion-view view-title="Motion Lists">
     <ion-content>
       <div class="list">
-            <div class="item item-input-inset subheader">
-                <label class="item-input-wrapper">
-                     <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete col-90" autocomplete="off" ng-model="formData.city" item-view-value-key="formatted_address" items-method="getAddressSuggestions(query)" placeholder="Bairro, Cidade" max-selected-items="1" cancel-label="Cancelar" select-items-label="Selecione uma cidade" />
-                    <button class="button button-small">
-                        <i class="icon ion-ios-search"></i>
-                    </button>
-                </label>
-            </div>
+        <div class="item item-input-inset subheader">
+            <label class="item-input-wrapper">
+                 <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete col-90" autocomplete="off" ng-model="formData.city" item-view-value-key="formatted_address" items-method="getAddressSuggestions(query)" placeholder="Bairro, Cidade" max-selected-items="1" cancel-label="Cancelar" select-items-label="Selecione uma cidade" />
+                <button class="button button-small">
+                    <i class="icon ion-ios-search"></i>
+                </button>
+            </label>
         </div>
-
-      <div class="im-wrapper">
-          <h4 class="no-border no-padding-bottom">List Motions</h4>
-          <strong>Tap an item</strong>
       </div>
+
       <div class="row nopadding">
           <div class="col nopadding">
               <button class="button button-small button-block" ng-click="myModel.tab=1" ng-class="myModel.tab==1 ? 'active' : ''"><i class="icon ion-funnel"></i> Lista</button>
@@ -94,7 +32,7 @@
         </ion-list>
       </div>
       <div ng-show="myModel.tab==2" id="mapa">
-        <p>Aqui vem meu mapa</p>
+          <div id="map" style="width:100%; height:100%"></div>
       </div>
       <br />
       <br />
