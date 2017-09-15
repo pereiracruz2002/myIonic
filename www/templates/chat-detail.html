@@ -19,7 +19,7 @@
     </ion-footer-bar>
 </ion-view> -->
 
-<ion-view view-title="Chats">
+<!-- <ion-view view-title="Chats">
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,conversa) in conversas" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
@@ -38,6 +38,33 @@
         <input type="text" placeholder="Type your message" on-return="sendMessage(); closeKeyboard()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()" />
       </label>
       <button class="button button-clear" ng-click="sendMessage()">
+        Send
+      </button>
+    </ion-footer-bar>
+</ion-view> -->
+
+<ion-view view-title="Motion Lists">
+    <ion-content>
+          <ion-list class="animate-ripple">
+              <ion-item nav-clear ng-repeat="(key,conversa) in conversas" menu-close class="item-icon-right item-avatar" ng-click="blinds();">
+                  <img src="{{conversa.photoURL}}"></a>
+                  <h2>{{conversa.texto}}</h2>
+              </ion-item>
+              <ion-item nav-clear ng-repeat="newMessage in newMessages" menu-close class="item-icon-right item-avatar">
+                  <img src="{{newMessage.photoURL}}"></a>
+                  <h2>{{newMessage.texto}}</h2>
+              </ion-item>
+          </ion-list>
+        </div>
+        <br />
+        <br />
+        <br />
+    </ion-content>
+      <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+      <label class="item-input-wrapper">
+        <input type="text" placeholder="Type your message" on-return="sendMessage(); closeKeyboard()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()" />
+      </label>
+      <button class="button button-small button-positive " ng-click="sendMessage()">
         Send
       </button>
     </ion-footer-bar>

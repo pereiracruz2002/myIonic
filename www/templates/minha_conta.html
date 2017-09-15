@@ -1,60 +1,84 @@
-<!-- <ion-view view-title="Perfil">
-    <ion-nav-bar class="bar-dark">
-        <ion-nav-back-button>
-        </ion-nav-back-button>
-    </ion-nav-bar>
-    
-    <ion-content has-header="true">
-      <div id="profile-bg"></div>
-      <div id="content">
-        <div id="profile-info">
-          <img id="profile-image" src="{{chat.photoURL}}">
-          <h3 id="profile-name">{{chat.nome}} {{chat.sobrenome}}</h3>
-          <span id="profile-description">{{chat.cidade}} {{chat.estado}}</span>
-          <a href="#/tab/chats/{{chatId.profissional}}" id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin pane on" nav-view="active" style="opacity: 1; box-shadow: rgba(0, 0, 0, 0) 0px 0px 10px; transform: translate3d(0%, 0px, 0px);"><i class="icon ion-chatbubbles"></i></a>
+<!-- <ion-view view-title="Profile">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('../img/cover-image.jpg');">
+            <div class="content">
+                <div class="avatar" style="background-image: url('{{chat.photoURL}}');"></div>
+                <h3><a class="light">{{chat.nome}} {{chat.sobrenome}}</a></h3>
+                <h4>dragon_mommy</h4>
+            </div>
         </div>
-        <div class = "list">
-           <div class = "item item-divider">Especialidades</div>
-           <div ng-repeat="treino in chat.treinos" class = "item"> {{treino.name}}</div>
-        </div>
-        <div class = "list">
-           <div class = "item item-divider">Formação</div>
-           <div class = "item"> {{chat.formacao}}</div>
-        </div>
-        <div class = "list">
-           <div class = "item item-divider">Sobre Mim</div>
-           <div class = "item"> {{chat.sobre}}</div>
-        </div>
-      </div>
-      <div class = "list">
-           <div class = "item item-divider">Locais de Atendimento</div>
-           <div ng-repeat="local in chat.locais" class = "item"> 
-            <p>{{local.local}}</p>
-            <p>{{local.endereco}}</p>
-          </div>
+
+        <h4 class="content padding double-padding-x">Following</h4>
+        <div class="list animate-fade-slide-in-right">
+            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="img/jon-snow.jpg">
+                <h2>Jon Snow</h2>
+                <p>Da illest illegitimate</p>
+                <i class="icon ion-chatbubble muted"></i>
+            </a>
+            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="img/sansa.jpg">
+                <h2>Sansa Stark</h2>
+                <p>&amp; Joffrey <strike>sitting</strike> sat in a tree</p>
+                <i class="icon ion-chatbubble muted"></i>
+            </a>
+            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="img/tyrion.jpg">
+                <h2>Tyrion Lannister</h2>
+                <p>B.A.M.F. imp</p>
+                <i class="icon ion-chatbubble muted"></i>
+            </a>
         </div>
     </ion-content>
-  </ion-view> -->
+</ion-view> -->
+<ion-view view-title="Profile">
+<ion-content ng-class="{expanded:$scope.isExpanded}">
 <div class="ionic">
         <div class="bar bar-header bar-positive">
             <button class="button button-icon icon ion-person-add flat"></button>
             <button class="button button-icon icon ion-heart flat pull-right"></button>
             <h1 class="title fab-left">Profile</h1>
         </div>
-        <a class="button button-fab button-fab-top-right button-calm icon ion-chatbubbles waves-effect waves-button waves-light" href="#/tab/chats/{{chatId.profissional}}"></a>
+        <a class="button button-fab button-fab-top-right button-calm icon ion-chatbubbles waves-effect waves-button waves-light" href="#/tab/chats/{{profissionalId}}"></a>
         <div class="content has-header">
             <div class="hero has-mask " style="background-image: url('../img/cover-image.jpg');">
                 <div class="content">
                     <div class="avatar" style="background-image: url('{{chat.photoURL}}');"></div>
                     <h3><a class="light">{{chat.nome}} {{chat.sobrenome}}</a></h3>
-                    <h4>English Teacher</h4>
                 </div>
             </div>
-            
-            <h4 class="positive content padding double-padding-x">Formação</h4>
-            <div class="list animate-fade-slide-in-right">
-            <p ng-repeat="treino in chat.treinos" class = "item"> {{treino.name}}</p> 
-                
-            </div>
+
+              <ion-scroll height="200px">
+                <div class="im-wrapper "> 
+                  <h4 class="border-top"><i class="icon ion-arrow-shrink"></i> Especialidades</h4>
+                  <div class="list list-inset">
+                      <div ng-repeat="treino in chat.treinos" class="item">
+                          {{treino.name}}
+                      </div>
+                  </div>
+                  <h4 class="border-top"><i class="icon ion-arrow-shrink"></i> Formação</h4>
+                  <div class="list list-inset">
+                      <div ng-repeat="treino in chat.treinos" class="item">
+                          {{chat.formacao}}
+                      </div>
+                  </div>
+                   <h4 class="border-top"><i class="icon ion-arrow-shrink"></i> Sobre Mim</h4>
+                  <div class="list list-inset">
+                      <div ng-repeat="treino in chat.treinos" class="item">
+                          {{chat.sobre}}
+                      </div>
+                  </div>
+                  <h4 class="border-top"><i class="icon ion-arrow-shrink"></i> Locais de Atendimento</h4>
+                  <div class="list list-inset">
+                      <div ng-repeat="local in chat.locais" class="item">
+                           <p>{{local.local}}</p>
+                           <p>{{local.endereco}}</p>
+                      </div>
+                  </div>
+                </div>
+              </ion-scroll>
+
         </div>
     </div>
+  </ion-content>
+</ion-view>

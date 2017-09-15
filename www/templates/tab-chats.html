@@ -1,15 +1,11 @@
 <ion-view view-title="Motion Lists">
     <ion-content>
-        <div class="im-wrapper">
-            <h4 class="no-border no-padding-bottom">List Motions</h4>
-            <strong>Tap an item</strong>
-        </div>
           <ion-list class="animate-ripple">
               <ion-item nav-clear ng-repeat="conversa in conversas" menu-close class="item-icon-right item-avatar" ng-click="blinds();">
-                  <a href="#/tab/chats/{{conversa.id}}"><img src="{{conversa.photoURL}}"></a>
+                  
+                  <img src="{{conversa.photoURL}}"></a>
                   <h2>{{conversa.sobrenome}}</h2>
-                  <p>ionicMaterialMotion.blinds();</p>
-                  <i class="icon ion-chatbubble muted"></i>
+                  <a href="#/tab/chats/{{conversa.id}}"><i class="icon ion-chatbubble muted"></i></a>
               </ion-item>
           </ion-list>
         </div>
@@ -18,3 +14,7 @@
         <br />
     </ion-content>
 </ion-view>
+
+
+
+

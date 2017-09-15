@@ -5,7 +5,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     $scope.signIn = function (user) {
       var usuario = "";
       firebase.auth().signInWithEmailAndPassword(user.email,user.password).then(function(result) {
-        console.log(result)
+
         var usuario = { 'uid':result.uid}
         UserService.saveProfile(usuario);
       $state.go('tab.dash'); //4
@@ -76,20 +76,20 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
 
 })
 
-.controller('PerfilCtrl',function($scope,$stateParams,$state,$ionicLoading,$firebase,$firebaseAuth){
+.controller('PerfilCtrl',function($scope,$timeout,$stateParams,$state,$ionicLoading,$firebase,$firebaseAuth,UserService){
+
   var profissionalId = $stateParams.profissionalId;
   var treinos = [];
   var refTreino  = firebase.database().ref("/treino_profissionais");
 
-    //var auth = $firebaseAuth();
-    //var authData = auth.$getAuth().uid;
-    var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
 
 
+    //var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
+    var authData = UserService.getProfile();
 
-   
-    
     var profissional_aluno = $stateParams.profissionalId+"_"+authData;
+
+    $scope.profissionalId = $stateParams.profissionalId;
 
 
 
@@ -98,52 +98,25 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
         var key = Object.keys(valor.val());
         $scope.chats= valor.val(); 
         $scope.chat = $scope.chats[key]
+
         // refTreino  = firebase.database().ref("/treino_profissionais").orderByChild('profissionalId').equalTo(1).once("value",function(snapshot){
         //   treinos = snapshot.val();
         // });
         refChat  = firebase.database().ref("/chat").orderByChild('profissional_aluno').equalTo(profissional_aluno).once("value",function(snapshot){
           $scope.chatId = snapshot.val();
-          console.log($scope.chatId)
+          //console.log($scope.chatId)
+
         });
         //$scope.chatId =$scope.chatId {'treinos':treinos};
          
       });
     });
 })
-.controller('StudentCtrl', function ($scope, $stateParams,$firebase, $firebaseArray,$state,$ionicPopup,$q,$cordovaCamera,$ionicPlatform) {
-    // firebase.auth().onAuthStateChanged(function(user){
-    //   console.log(user)
-    //   if(user){
-    //     $state.go("search.account");
-    //   }else{
-    //     $scope.tab=1;
-    //     $scope.isSet = function(tabNum){
-    //       return $scope.tab ===tabNum;
-    //     }
-    //   }   
-    // });
+.controller('StudentCtrl', function ($scope, $stateParams,$firebase, $firebaseArray,$state,$ionicPopup,$q,$cordovaCamera,$ionicPlatform,UserService) {
+
     $scope.myModel= {'tab': 1};
     $scope.images = [];
-    // var datePickerObj = {
-    //   inputDate: new Date(),
-    //   titleLabel: 'Select a Date',
-    //   setLabel: 'Set',
-    //   todayLabel: 'Today',
-    //   closeLabel: 'Close',
-    //   mondayFirst: false,
-    //   weeksList: ["S", "M", "T", "W", "T", "F", "S"],
-    //   monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
-    //   templateType: 'popup',
-    //   from: new Date(2012, 8, 1),
-    //   to: new Date(2018, 8, 1),
-    //   showTodayButton: true,
-    //   dateFormat: 'dd MMMM yyyy',
-    //   closeOnSelect: false,
-    //   disableWeekdays: []
-    // };
-    // $scope.openDatePicker = function(){
-    //   ionicDatePicker.openDatePicker(ipObj1);
-    // };
+ 
      
 
     $ionicPlatform.ready(function(){
@@ -178,19 +151,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
           });
         }
 
-        // $scope.choosePicture = function(){
-        //     $cordovaCamera.getPicture(options).then(function(imageData) {
-        //         $scope.formData.picture = "data:image/jpeg;base64," + imageData;
-        //         var storageRef = firebase.storage().ref();
-        //         var  imageRef = storageRef.child('images/'+imageData);
-        //         imageRef.putString(this.captureDataUrl, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
-                
-        //       });
-        //         //$scope.formData.new_picture = "data:image/jpeg;base64," + imageData;
-        //     }, function(err) {
-        //         // error
-        //     });
-        // }
+       
     })
 
     var geocoder = new google.maps.Geocoder();
@@ -212,51 +173,26 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
         return defer.promise;
     }
 
-    // $scope.$watch('user.estado', function(){
-      
-    //   var dados = $scope.user.estado;
-    //     if(typeof dados === 'object'){
-    //       var cidade = dados.address_components[1].short_name;
-    //       var estado = dados.address_components[2].short_name;
-    //       $scope.user.estado = cidade+','+estado;
-    //     }
-    // });
+
 
     function sendEmailVerification() {
-      // [START sendemailverification]
+ 
       firebase.auth().currentUser.sendEmailVerification().then(function() {
-        // Email Verification sent!
-        // [START_EXCLUDE]
+
         alert('Email Verification Sent!');
-        // [END_EXCLUDE]
+
       });
-      // [END sendemailverification]
+  
     }
 
-    // var geocoder = new google.maps.Geocoder();
-    // $scope.getAddressSuggestions = function(queryString){
-    //     var defer = $q.defer();
-    //     geocoder.geocode(
-    //             {
-    //                 address: queryString,
-    //                 componentRestrictions: {country: 'BR'}
-    //             },
-    //             function (results, status) {
-    //                 if (status == google.maps.GeocoderStatus.OK) { defer.resolve(results); }
-    //                 else { defer.reject(results); }
-    //             }
-    //             );
-    //     return defer.promise;
-    // }
-
-    
     $scope.cadastro = function(user){
 
       var ref = firebase.database();
 
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(function(result) {
          var id = result.uid;
-         console.log(result.uid)
+          var usuario = { 'uid':id}
+        UserService.saveProfile(usuario);
         result.updateProfile({
           displayName: user.nome,
           photoURL: "http://lorempixel.com/400/200/sports/"
@@ -487,12 +423,66 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
    
 })
 
-.controller('ChatDetailCtrl', function($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading) {
+.controller('ChatDetailCtrl', function($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading,ionicMaterialMotion,UserService) {
   // console.log($stateParams.chatId)
   // console.log(firebase.auth())
 
+
+  var reset = function() {
+        var inClass = document.querySelectorAll('.in');
+        for (var i = 0; i < inClass.length; i++) {
+            inClass[i].classList.remove('in');
+            inClass[i].removeAttribute('style');
+        }
+        var done = document.querySelectorAll('.done');
+        for (var i = 0; i < done.length; i++) {
+            done[i].classList.remove('done');
+            done[i].removeAttribute('style');
+        }
+        var ionList = document.getElementsByTagName('ion-list');
+        for (var i = 0; i < ionList.length; i++) {
+            var toRemove = ionList[i].className;
+            if (/animate-/.test(toRemove)) {
+                ionList[i].className = ionList[i].className.replace(/(?:^|\s)animate-\S*(?:$|\s)/, '');
+            }
+        }
+    };
+
+    $scope.ripple = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-ripple';
+        setTimeout(function() {
+            ionicMaterialMotion.ripple();
+        }, 500);
+    };
+
+    $scope.fadeSlideInRight = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-fade-slide-in-right';
+        setTimeout(function() {
+            ionicMaterialMotion.fadeSlideInRight();
+        }, 500);
+    };
+
+    $scope.fadeSlideIn = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-fade-slide-in';
+        setTimeout(function() {
+            ionicMaterialMotion.fadeSlideIn();
+        }, 500);
+    };
+
+    $scope.blinds = function() {
+        reset();
+        document.getElementsByTagName('ion-list')[0].className += ' animate-blinds';
+        setTimeout(function() {
+            ionicMaterialMotion.blinds(); // ionic.material.motion.blinds(); //ionicMaterialMotion
+        }, 500);
+    };
+
   $scope.platform = ionic.Platform.platform();
   $scope.heightImg = '90';
+  $scope.newMessages = [];
 
   //$scope.chat = Chats.get($stateParams.chatId);
   $ionicLoading.show({
@@ -502,19 +492,13 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     });
     var ref =firebase.database();
     
-    var auth = $firebaseAuth();
-    //var authData = auth.$getAuth().uid;
-    var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
-    // auth.$onAuthStateChanged(function(firebaseUser) {
+    var authData = UserService.getProfile();
 
-    //    authData = firebaseUser.uid;
-    //    console.log(authData);
-    // });
 
     var chatRef = ref.ref("/chat/");
     var conversaRef = ref.ref("/conversas");    
     var profissional_aluno = $stateParams.chatId+"_"+authData;
-    $scope.conversas = '';
+    
 
     console.log(profissional_aluno)
 
@@ -527,13 +511,17 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
           conversaRef.orderByChild('id').equalTo(key).once("value",function(snapshot){
             console.log(snapshot.val())
             $scope.conversas= snapshot.val();
+            $scope.blinds();
           });
-            console.log($scope.conversas)
+            //console.log($scope.conversas[1])
       });
     });
 
 
     $scope.sendMessage = function(){
+       
+      
+
       var messge = conversaRef.push();
             messge.set({
               id:"1",
@@ -541,17 +529,20 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
               photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
               texto: $scope.data.message
             }).then(function(retorno){
-              console.log(retorno)
-              $scope.conversas.push({
+              $scope.newMessages.push({
                 id:"1",
                 nome:"Usain",
                 photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
                 texto: $scope.data.message
 
               });
-
+              $scope.blinds();
               $ionicScrollDelegate.scrollBottom(true);
+             
             })
+
+             
+              
 
       //$ionicScrollDelegate.scrollBottom(true);
     }
@@ -654,14 +645,16 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
   });
     var ref =firebase.database();
     
-    var auth = $firebaseAuth();
+    //var auth = $firebaseAuth();
     //var authData = auth.$getAuth().uid;
-    var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
+    //var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
     // auth.$onAuthStateChanged(function(firebaseUser) {
 
     //    authData = firebaseUser.uid;
     //    console.log(authData);
     // });
+
+    var authData = UserService.getProfile();
 
     var chatRef = ref.ref("/chat/");
 
@@ -674,22 +667,15 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
 
     chatRef.orderByChild('aluno').equalTo(aluno).once("value",function(valor){
       $ionicLoading.hide().then(function(){
-          
           var key = Object.keys(valor.val())[0];
-          console.log(valor)
 
           profissionaisRef.orderByChild('id').equalTo(key).once("value",function(snapshot){
-            console.log(snapshot.val())
             $scope.conversas= snapshot.val();
+            $scope.blinds();
           });
             console.log($scope.conversas)
       });
     });
-
-
-    $scope.blinds();
-  
-
 })
 
 .controller('RoomsCtrl', function ($scope, Rooms, Chats, $state) {
