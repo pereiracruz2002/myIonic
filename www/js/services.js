@@ -5,6 +5,6 @@ App.service('UserService', function() {
         return user;
     }
     this.saveProfile= function(user){
-      localStorage.setItem("user.current_user", user.uid);
+      localStorage.setItem("user.current_user", JSON.stringify(user));
     }
 });

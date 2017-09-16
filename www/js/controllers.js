@@ -5,8 +5,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     $scope.signIn = function (user) {
       var usuario = "";
       firebase.auth().signInWithEmailAndPassword(user.email,user.password).then(function(result) {
-
-        var usuario = { 'uid':result.uid}
+        var usuario = { 'uid':result.uid,'photoURL':result.photoURL}
         UserService.saveProfile(usuario);
       $state.go('tab.dash'); //4
       },function(error) {
@@ -81,15 +80,11 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
   var profissionalId = $stateParams.profissionalId;
   var treinos = [];
   var refTreino  = firebase.database().ref("/treino_profissionais");
+  var perfil = JSON.parse(UserService.getProfile());
+  var authData = perfil.uid;
+  var profissional_aluno = $stateParams.profissionalId+"_"+authData;
 
-
-
-    //var authData = "ubkRweSJGwT59CUIm3gqNkZnehi1";
-    var authData = UserService.getProfile();
-
-    var profissional_aluno = $stateParams.profissionalId+"_"+authData;
-
-    $scope.profissionalId = $stateParams.profissionalId;
+  $scope.profissionalId = $stateParams.profissionalId;
 
 
 
@@ -186,16 +181,26 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     }
 
     $scope.cadastro = function(user){
+      var dados = user.estado;
+      if(typeof dados === 'object'){
+        var cidade = dados.address_components[1].short_name;
+        var estado = dados.address_components[2].short_name;
+      }
+
+      var estado_cidade = cidade+"_"+estado;
+
+      console.log(estado_cidade);
+
 
       var ref = firebase.database();
 
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(function(result) {
-         var id = result.uid;
-          var usuario = { 'uid':id}
+        var id = result.uid;
+        var usuario = { 'uid':result.uid,'photoURL':result.photoURL}
         UserService.saveProfile(usuario);
         result.updateProfile({
           displayName: user.nome,
-          photoURL: "http://lorempixel.com/400/200/sports/"
+          photoURL: "avatar.png"
         }).then(function() {
           firebase.auth().currentUser.sendEmailVerification().then(function() {
            
@@ -212,12 +217,12 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
                 sexo:user.sexo,
                 email:user.email,
                 nascimento:user.nascimento,
-                estado:user.estado,
-                cidade:user.cidade
+                estado:estado,
+                estado_cidade:estado_cidade
                 
               }).then(function(retorno){
                 if(user.tipo =="aluno"){
-                  $state.go("search.account");
+                  $state.go('tab.dash');
                 }else{
                   $state.go("setup-profile-professional");
                 }
@@ -483,6 +488,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
   $scope.platform = ionic.Platform.platform();
   $scope.heightImg = '90';
   $scope.newMessages = [];
+  var hasConversa = 0;
 
   //$scope.chat = Chats.get($stateParams.chatId);
   $ionicLoading.show({
@@ -492,47 +498,56 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     });
     var ref =firebase.database();
     
-    var authData = UserService.getProfile();
-
-
+    var perfil = JSON.parse(UserService.getProfile());
+  
+    var authData = perfil.uid;
+    var imgPerfil = perfil.photoURL;
     var chatRef = ref.ref("/chat/");
     var conversaRef = ref.ref("/conversas");    
     var profissional_aluno = $stateParams.chatId+"_"+authData;
+    var profissional = $stateParams.chatId;
     
-
-    console.log(profissional_aluno)
-
 
 
     chatRef.orderByChild('profissional_aluno').equalTo(profissional_aluno).once("value",function(valor){
       $ionicLoading.hide().then(function(){
-          
           var key = Object.keys(valor.val())[0];
           conversaRef.orderByChild('id').equalTo(key).once("value",function(snapshot){
-            console.log(snapshot.val())
-            $scope.conversas= snapshot.val();
+            //console.log(snapshot.val())
+            if(key == null){
+              $scope.conversas = '';
+            }else{
+              $scope.conversas= snapshot.val();
+            }
+            
             $scope.blinds();
           });
             //console.log($scope.conversas[1])
       });
     });
 
-
+    console($scope.conversas.size)
     $scope.sendMessage = function(){
-       
-      
 
+      if($scope.conversas==null){
+        var primeira = chatRef.push();
+        primeira.set({
+          aluno:authData,
+          profissional:profissional,
+          profissional_aluno:profissional_aluno
+        })
+      }
       var messge = conversaRef.push();
             messge.set({
-              id:"1",
+              id:profissional,
               nome:"Usain",
-              photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+              photoURL:imgPerfil,
               texto: $scope.data.message
             }).then(function(retorno){
               $scope.newMessages.push({
-                id:"1",
+                id:profissional,
                 nome:"Usain",
-                photoURL:"http://media1.santabanta.com/full1/Sports/Usain%20Bolt/usain-bolt-3v.jpg",
+                photoURL:imgPerfil,
                 texto: $scope.data.message
 
               });
@@ -580,7 +595,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     });
 })
 
-.controller('ChatsCtrl', function ($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading,ionicMaterialMotion) {
+.controller('ChatsCtrl', function ($scope,$firebase,$firebaseAuth,$ionicScrollDelegate, $stateParams,$ionicLoading,ionicMaterialMotion,UserService) {
   
   var reset = function() {
         var inClass = document.querySelectorAll('.in');
@@ -636,8 +651,6 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
 
     
 
-
-
   $ionicLoading.show({
           template: 'Carregando...'
       }).then(function(){
@@ -654,7 +667,8 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
     //    console.log(authData);
     // });
 
-    var authData = UserService.getProfile();
+  var perfil = JSON.parse(UserService.getProfile());
+  var authData = perfil.uid;
 
     var chatRef = ref.ref("/chat/");
 
