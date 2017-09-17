@@ -107,7 +107,7 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
       });
     });
 })
-.controller('StudentCtrl', function ($scope, $stateParams,$firebase, $firebaseArray,$state,$ionicPopup,$q,$cordovaCamera,$ionicPlatform,UserService) {
+.controller('StudentCtrl', function ($scope, $stateParams,$firebase, $firebaseArray,$state,$ionicPopup,$q,$cordovaCamera,$ionicPlatform,UserService,$ionicModal) {
 
     $scope.myModel= {'tab': 1};
     $scope.images = [];
@@ -246,6 +246,23 @@ App.controller('LoginCtrl', function ($scope, $stateParams,$firebase,$state,$ion
         });
       });
     };
+
+  $ionicModal.fromTemplateUrl('templates/termo.html',{
+    scope:$scope,
+    animation:'slide-in-up',
+  }).then(function(m){
+    $scope.modal =m;
+    
+  });
+
+  $scope.abreModal = function(){
+    
+      $scope.modal.show();
+  }
+
+  $scope.fechaModal =function(){
+    $scope.modal.hide();
+  }
 })
 .controller('DashCtrl', function($scope, $stateParams,$firebase,$firebaseAuth,$ionicLoading,$q,ionicMaterialMotion) {
 
